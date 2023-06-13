@@ -22,7 +22,7 @@ export const ButtonCheckout: FC = () => {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)
         window.open(
-          `https://ezcontacts-pre-prod-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+          `https://ez-contacts-stage-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
           "_self"
         )
       }
@@ -35,7 +35,7 @@ export const ButtonCheckout: FC = () => {
     if (settings.orderId) {
       let paymentToken = await getPaymentToken(settings.orderId)
       window.open(
-        `https://ezcontacts-pre-prod-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+        `https://ez-contacts-stage-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
         "_self"
       )
     }
@@ -48,10 +48,7 @@ export const ButtonCheckout: FC = () => {
           order: {
             id: orderId,
           },
-          customer: {
-            email: "ezdev.mahesh@gmail.com",
-          },
-        },
+       },
       }
       return fetch(
         `https://odoo.ezcontacts.com/cl/order/payment/v1/payment-token`,

@@ -27,7 +27,7 @@ export const ButtonCheckout: FC = () => {
         )
       }
     } else {
-      window.location.href = `https://odoo.ezcontacts.com/account/sign-in?cart-login=1`
+      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}}/account/sign-in?cart-login=1`
     }
   }
 
@@ -54,7 +54,7 @@ export const ButtonCheckout: FC = () => {
         },
       }
       return fetch(
-        `https://preprod.ezcontacts.com/cl/order/payment/v1/payment-token`,
+        `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,
         {
           headers: {
             Accept: "application/json",

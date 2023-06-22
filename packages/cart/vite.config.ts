@@ -12,6 +12,17 @@ export default defineConfig(({ mode }) => {
   const basePath =
     env.PUBLIC_PROJECT_PATH != null ? `/${env.PUBLIC_PROJECT_PATH}` : ""
 
+
+    const processEnvValues = {
+      "process.env": Object.entries(env).reduce((prev, [key, val]) => {
+        console.log(key, val);
+        return {
+          ...prev,
+          [key]: val,
+        };
+      }, {}),
+    };
+
   return {
     plugins: preparePlugins({ analyzeBundle }),
     envPrefix: "PUBLIC_",
@@ -56,6 +67,7 @@ export default defineConfig(({ mode }) => {
       environment: "jsdom",
       include: ["src/**/*.{test,spec}.{ts,tsx}"],
     },
+    define: processEnvValues,
   }
 })
 

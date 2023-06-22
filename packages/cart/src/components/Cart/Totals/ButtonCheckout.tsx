@@ -48,10 +48,7 @@ export const ButtonCheckout: FC = () => {
           order: {
             id: orderId,
           },
-          customer: {
-            email: "ezdev.mahesh@gmail.com",
-          },
-        },
+       },
       }
       return fetch(
         `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,

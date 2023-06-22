@@ -51,8 +51,8 @@ export const ButtonCheckout: FC = () => {
        },
       }
       return fetch(
-        `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,
-        {
+    `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,
+     {
           headers: {
             Accept: "application/json",
           },

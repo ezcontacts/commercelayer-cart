@@ -22,12 +22,12 @@ export const ButtonCheckout: FC = () => {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)
         window.open(
-          `https://ez-contacts-stage-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+          `https://ezcontacts-prod-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
           "_self"
         )
       }
     } else {
-      window.location.href = `https://odoo.ezcontacts.com/account/sign-in?cart-login=1`
+      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`
     }
   }
 
@@ -35,7 +35,7 @@ export const ButtonCheckout: FC = () => {
     if (settings.orderId) {
       let paymentToken = await getPaymentToken(settings.orderId)
       window.open(
-        `https://ez-contacts-stage-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+        `https://ezcontacts-prod-checkout.netlify.app/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
         "_self"
       )
     }
@@ -51,7 +51,7 @@ export const ButtonCheckout: FC = () => {
        },
       }
       return fetch(
-        `https://odoo.ezcontacts.com/cl/order/payment/v1/payment-token`,
+        `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,
         {
           headers: {
             Accept: "application/json",

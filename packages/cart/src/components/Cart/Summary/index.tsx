@@ -26,6 +26,7 @@ type Props = {
 }
 
 export const Summary: FC<Props> = ({ listTypes }) => {
+
   const { t } = useTranslation()
   const { settings } = useSettings()
   let productNames = [] as any

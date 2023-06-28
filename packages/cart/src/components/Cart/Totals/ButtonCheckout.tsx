@@ -27,7 +27,9 @@ export const ButtonCheckout: FC = () => {
         )
       }
     } else {
+
       window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`
+
     }
   }
 

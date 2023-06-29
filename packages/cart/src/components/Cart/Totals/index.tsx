@@ -80,29 +80,32 @@ export const Totals: FC = () => {
           }
         </GiftCardAmount>
       </div>
-      <div className="pb-2 flex items-center justify-between">
-        <div className="font-normal text-sm leading-7 text-gray-500">
-          Coupon Discount
-        </div>
-        <div className="font-normal text-sm leading-7 text-gray-500">
-          <DiscountAmount>
-            {({ priceCents, price }) =>
-              priceCents ? (
-                <div className="text-black mb-2 flex justify-between">
-                  <div
-                    className="font-semibold"
-                    data-test-id="discount-amount"
-                    data-amount={priceCents}
-                  >
-                    {price}
+
+      <div>
+        <DiscountAmount>
+          {({ priceCents, price }) =>
+            priceCents ? (
+              <div className="pb-2 flex items-center justify-between">
+                <div className="font-normal text-sm leading-7 text-gray-500">
+                  Coupon Discount
+                </div>
+                <div className="font-normal text-sm leading-7 text-gray-500">
+                  <div className="text-black mb-2 flex justify-between">
+                    <div
+                      className="font-semibold"
+                      data-test-id="discount-amount"
+                      data-amount={priceCents}
+                    >
+                      {price}
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <div>{"$0.00"} </div>
-              )
-            }
-          </DiscountAmount>
-        </div>
+              </div>
+            ) : (
+              <div />
+            )
+          }
+        </DiscountAmount>
       </div>
       <div className="mt-2 mb-4 divider-line-cart"></div>
       <div className="pb-4 pt-4 flex items-center justify-between">

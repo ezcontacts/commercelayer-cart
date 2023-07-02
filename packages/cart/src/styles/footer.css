@@ -1,0 +1,30 @@
+.review-banner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+}
+.review-banner-title{
+}
+.review-banner-title:after, 
+.review-banner-title::before{
+    content: "";
+    display: inline-block;
+    width: 75px;
+    height: 1px;
+    background-color: #000;
+    margin: 3px 10px;
+}
+.review-banner-main{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+    justify-content: space-around;
+    align-content: space-around;
+    gap: 15px;
+}
+
+
+

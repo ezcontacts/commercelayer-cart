@@ -5,15 +5,30 @@
     padding-top: 40px;
 }
 .review-banner-title{
+    color: #4D4D4D;
+    display:flex;
+    align-items: center;
+    gap: 20px;
 }
-.review-banner-title:after, 
-.review-banner-title::before{
+.review-banner-title-star{
+    display: flex;
+    align-items: center;
+    color: #E0E0E0;
+}
+.review-banner-title-star.a::before, 
+.review-banner-title-star.b::after{
     content: "";
     display: inline-block;
     width: 75px;
-    height: 1px;
-    background-color: #000;
-    margin: 3px 10px;
+    /* height: 1px;
+    background-color: #000; */
+    margin: 3px -10px;
+    border: 1px solid #E0E0E0;
+}
+@media screen and (max-width: 768px) {
+    .review-banner-title{
+        font-size: 12px;
+    }
 }
 .review-banner-main{
     display: flex;

@@ -1,8 +1,9 @@
-
+import { HiStar } from "react-icons/hi"
+import { LiaStarSolid } from "react-icons/lia"
 
 const Rating = ({rating}:{rating:string}) => {
   return (
-    <div className='button-checkout p-1 text-white'>{rating}</div>
+    <div className='button-checkout p-1 text-white flex items-center text-[12px]'><HiStar/>{rating}</div>
   )
 }
 
@@ -12,7 +13,7 @@ const ReviewSiteCard = ({logo,company,rating,reviews}:{logo:string,company:strin
       <img src={logo} alt={company} />
       <div className='flex text-xs items-center gap-1'>
         <Rating rating={rating}/>
-        <div className='text-tundora-300'>{`(${reviews} Reviews)`}</div>
+        <div className='text-tundora-300 text-[10px]'>{`(${reviews} Reviews)`}</div>
       </div>
     </div>
   )
@@ -29,7 +30,11 @@ export const Divider = () => {
 const PageFooter = () => {
   return (
     <div className='review-banner'>
-      <div className='review-banner-title'>Customers love us</div>
+      <div className='review-banner-title uppercase font-bold'>
+        <div className="review-banner-title-star a"><LiaStarSolid/></div>
+        Customers love us
+        <div className="review-banner-title-star b"><LiaStarSolid /></div>
+      </div>
       <div className='review-banner-main'>
         <ReviewSiteCard logo="/img/ResellerRatings-logo-e1656963462806 1.svg" company={'Reseller Ratings'} rating="4.7/5" reviews="10,451"/>
         <Divider/>

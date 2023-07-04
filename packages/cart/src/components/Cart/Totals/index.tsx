@@ -4,20 +4,23 @@ import {
   SubTotalAmount,
   TotalAmount,
   LineItemsCount,
+  LineItemsEmpty,
 } from "@commercelayer/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonCheckout } from "./ButtonCheckout"
 import { CouponOrGiftCard } from "#components/Cart/CouponOrGiftCard"
+import { SideSkeleton } from "#components/Skeleton"
 
 export const Totals: FC = () => {
   const { t } = useTranslation()
 
   return (
     <div>
-      <LineItemsCount>
-        {({ quantity }) =>
-          quantity ? (
+      <LineItemsEmpty>
+        {({ quantity }) =>{
+          if(quantity > 0) {
+            return(
             <>
               <div className="pb-4">
                 <span className="text-xs font-semibold leading-5 text-gray-700`">
@@ -132,19 +135,27 @@ export const Totals: FC = () => {
                   </TotalAmount>
                 </div>
               </div>
-            </>
-          ) : (
-            <div />
+              <ButtonCheckout />
+              <div className="text-center pt-2 pb-5">
+                <span className="font-normal text-xs leading-5 text-center text-gray-600">
+                  {
+                    "if applicable, shipping costs will be calculated at checkout"
+                  }
+                </span>
+              </div>
+            </>)
+           } 
+          else if (quantity === undefined ) {
+            return (
+              <SideSkeleton/>
+            )
+          }
+          else return (
+            <div/>
           )
         }
-      </LineItemsCount>
-
-      <ButtonCheckout />
-      <div className="text-center pt-2 pb-5">
-        <span className="font-normal text-xs leading-5 text-center text-gray-600">
-          {"if applicable, shipping costs will be calculated at checkout"}
-        </span>
-      </div>
+        }
+      </LineItemsEmpty>
     </div>
   )
 }

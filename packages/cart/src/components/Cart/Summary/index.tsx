@@ -31,7 +31,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   const { settings } = useSettings()
   let productNames = [] as any
   const goContinueShopping = () => {
-    window.location.href = "https://odoo.ezcontacts.com/"
+    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
   }
 
   const ContinueShopping = () => {

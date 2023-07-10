@@ -90,6 +90,7 @@ const Cart: FC = () => {
     })
   }
 
+
   const getOrderDetails = async () => {
     const url = `${process.env.REACT_APP_PUBLIC_CL_URL_PATH}/api/orders/${"PEBrhErDdz"}?include=line_items.item,line_items.line_item_options.sku_option`
     return await fetch(url, {

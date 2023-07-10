@@ -20,6 +20,7 @@ const Cart: FC = () => {
   if (!settings || !settings.isValid) {
     return null
   }
+
   const [isLoading, setisLoading] = useState(false)
   const [showModal, setShowModal] = useState({
     value: "",

@@ -18,7 +18,7 @@ export const LineItemOptionsAtributes: FC = () => {
         className="font-normal text-xs leading-5 text-gray-400"
         style={{ listStyleType: "disc" }}
       >
-        <li>{name}</li>
+        <li>{"majuue"}</li>
       </ol>
     )
   }

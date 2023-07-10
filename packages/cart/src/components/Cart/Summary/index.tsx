@@ -7,29 +7,40 @@ import {
   LineItemField,
   LineItemsCount,
 } from "@commercelayer/react-components"
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { ButtonRemoveItem } from "./ButtonRemoveItem"
-import {
-  LineItemOptions,
-  LineItemOptionsAtributes,
-  LineItemOptionsRespone,
-} from "./LineItemOptions"
-import { QuantitySelector } from "./QuantitySelector"
+import { NewButtonRemoveItem } from "./ButtonRemoveItem"
+import { LineItemOptions, LineItemOptionsRespone } from "./LineItemOptions"
+import { NewQuantitySelector } from "./QuantitySelector"
 import { EmptyCartMessage } from "#components/atoms/EmptyCartMessage"
 import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
+import { i } from "vitest/dist/index-5aad25c1"
+import {
+  CartLineItemOptions,
+  LineItemOptionsAtributes,
+} from "./CartLineItemOptions"
 
 type Props = {
   listTypes: LineItemType[]
 }
 
-export const Summary: FC<Props> = ({ listTypes }) => {
-
+export const Summary = ({
+  cartItems,
+  onSetShowModel,
+  onDelete,
+  showModal,
+  updateItemQuantity,
+  isLoading,
+}: any) => {
   const { t } = useTranslation()
   const { settings } = useSettings()
-  let productNames = [] as any
+
+  if (!settings || !settings.isValid) {
+    return null
+  }
+
   const goContinueShopping = () => {
     window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
   }
@@ -65,256 +76,159 @@ export const Summary: FC<Props> = ({ listTypes }) => {
     )
   }
 
-  const ShoppingHeaderCart = (
-    <div className="text-lg pb-6 leading-6 text-gray-700">
-      <LineItemsCount>
-        {({ quantity }) =>
-          quantity ? (
-            <span data-test-id="items-count"> Shopping Cart ({quantity})</span>
-          ) : (
-            <div />
-          )
-        }
-      </LineItemsCount>
-    </div>
-  )
+  if (isLoading) {
 
-  const SelectQuantity = ({ type }: any) => {
-    return (
-      <div className="flex pt-2 items-center justify-between space-x-5 mt-auto">
-        <div>{type === "gift_cards" ? <div /> : <QuantitySelector />}</div>
-        <div>
-          <LineItemAmount className="font-semibold text-sm text-right text-gray-700" />
-        </div>
-      </div>
-    )
+    return <LineItemsSkeleton />
   }
+
+
 
   return (
     <>
-      <div className="cart-summary-mobile">
-        {ShoppingHeaderCart}
-        {listTypes.map((type) => (
-          <LineItem key={type} type={type}>
-            <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-2">
+      <div className="cart-summary-desktop">
+        {cartItems?.length > 0 && (
+          <div className="text-lg pb-6 leading-6 text-gray-700">
+            <span data-test-id="items-count">
+              {" "}
+              Shopping Cart ({cartItems?.length})
+            </span>
+          </div>
+        )}
+        <div>
+          {cartItems.map((item: any) => (
+            <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-5">
               <div
-                className="flex space-x-8"
-                data-test-id={`line-item-${type}`}
+                className="flex space-x-8 w-full"
+                data-test-id={`line-item-${"skus"}`}
               >
-                <div style={{ width: "20%" }}>
-                  <div className="card-image-container">
-                    <LineItemImage className="self-start md:self-center object-contain" />
-                  </div>
+                <div className="w-3/6 card-image-container">
+                  <img
+                    src={item?.item1?.attributes?.image_url}
+                    alt={item?.item1?.attributes?.skuDisplayName}
+                    className="w-3/4 self-start md:self-center object-contain"
+                  />
                 </div>
-                <div style={{ width: "70%" }}>
+                <div className="w-4/5">
                   <div className="flex-1 flex flex-col">
                     <div className="flex justify-between items-start gap-1">
                       <div className="flex flex-col">
                         <div>
-                          <LineItemField attribute="metadata" tagElement="div">
-                            {({ attributeValue }: any) => {
-                              return (
-                                <div className="flex-col">
-                                  {attributeValue?.brandName && (
-                                    <div className="cart-brandname">
-                                      {attributeValue?.brandName}
-                                    </div>
-                                  )}
+                          <div className="flex-col">
+                            {item?.item1?.attributes?.metadata?.brandName && (
+                              <div className="cart-brandname">
+                                {item?.item1?.attributes?.metadata?.brandName}
+                              </div>
+                            )}
 
-                                  <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
-                                    {attributeValue?.skuDisplayName}
+                            <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
+                              {
+                                item?.item1?.attributes?.metadata
+                                  ?.skuDisplayName
+                              }
+                            </div>
+                            {item?.item1.attributes?.metadata?.frame_size && (
+                              <div className="pt-2">
+                                <div className="flex gap-1 text-sm">
+                                  <div className="font-semibold text-xs leading-5 text-gray-700">
+                                    {t("general.size")}:
                                   </div>
-                                  {attributeValue?.frame_size && (
-                                    <div className="pt-2">
-                                      <div className="flex gap-1 text-sm">
-                                        <div className="font-semibold text-xs leading-5 text-gray-700">
-                                          {t("general.size")}:
-                                        </div>
-                                        <div className="font-normal text-xs leading-5 text-gray-400">
-                                          {attributeValue?.frame_size}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
-                                  {attributeValue?.color && (
-                                    <div className="pt-2">
-                                      <div className="flex gap-1 text-sm">
-                                        <div className="font-semibold text-xs leading-5 text-gray-700">
-                                          {t("general.color")}:
-                                        </div>
-                                        <div className="font-normal text-xs leading-5 text-gray-400">
-                                          {attributeValue?.color}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
+                                  <div className="font-normal text-xs leading-5 text-gray-400">
+                                    {
+                                      item?.item1.attributes?.metadata
+                                        ?.frame_size
+                                    }
+                                  </div>
                                 </div>
-                              )
-                            }}
-                          </LineItemField>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ width: "10%" }}>
-                  <div className="flex flex-col space-y-16">
-                    <div>
-                      <ButtonRemoveItem />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex space-x-8">
-                <div style={{ width: "20%" }}></div>
-                <div style={{ width: "80%" }}>
-                  <LineItemOptionsRespone />
-                </div>
-              </div>
-              <div className="flex space-x-8">
-                <div style={{ width: "20%" }}></div>
-                <div style={{ width: "80%" }}>
-                  <SelectQuantity />
-                </div>
-              </div>
-            </div>
-          </LineItem>
-        ))}
-      </div>
-      <div className="cart-summary-desktop">
-        {ShoppingHeaderCart}
-        {listTypes.map((type) => (
-          <LineItem key={type} type={type}>
-            <LineItemField attribute="metadata" tagElement="div">
-              {({ attributeValue }: any) => {
-
-                return (
-                  <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-5">
-                    <div
-                      className="flex space-x-8 w-full"
-                      data-test-id={`line-item-${type}`}
-                    >
-                      <div className="w-3/6 card-image-container">
-                        <LineItemImage className="w-3/4 self-start md:self-center object-contain" />
-                      </div>
-                      <div className="w-4/5">
-                        <div className="flex-1 flex flex-col">
-                          <div className="flex justify-between items-start gap-1">
-                            <LineItemField
-                              attribute="metadata"
-                              tagElement="div"
-                            >
-                              {({ attributeValue }: any) => {
-                                return (
-                                  <div className="flex flex-col">
-                                    <div>
-                                      <div className="flex-col">
-                                        {attributeValue?.brandName && (
-                                          <div className="cart-brandname">
-                                            {attributeValue?.brandName}
-                                          </div>
-                                        )}
-
-                                        <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
-                                          {attributeValue?.skuDisplayName}
-                                        </div>
-                                        {attributeValue?.frame_size && (
-                                          <div className="pt-2">
-                                            <div className="flex gap-1 text-sm">
-                                              <div className="font-semibold text-xs leading-5 text-gray-700">
-                                                {t("general.size")}:
-                                              </div>
-                                              <div className="font-normal text-xs leading-5 text-gray-400">
-                                                {attributeValue?.frame_size}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        )}
-                                        {attributeValue?.color && (
-                                          <div className="pt-2">
-                                            <div className="flex gap-1 text-sm">
-                                              <div className="font-semibold text-xs leading-5 text-gray-700">
-                                                {t("general.color")}:
-                                              </div>
-                                              <div className="font-normal text-xs leading-5 text-gray-400">
-                                                {attributeValue?.color}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div>
-                                      <LineItemOptions
-                                        LineItem={attributeValue}
-                                      />
-                                    </div>
+                              </div>
+                            )}
+                            {item?.item1?.attributes?.metadata?.color && (
+                              <div className="pt-2">
+                                <div className="flex gap-1 text-sm">
+                                  <div className="font-semibold text-xs leading-5 text-gray-700">
+                                    {t("general.color")}:
                                   </div>
-                                )
-                              }}
-                            </LineItemField>
+                                  <div className="font-normal text-xs leading-5 text-gray-400">
+                                    {item?.item1?.attributes?.metadata?.color}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
+                        <div>
+                          {Object.keys(item).map((key, index) => (
+                            <CartLineItemOptions
+                              key={index}
+                              cartItem={item[key]}
+                            />
+                          ))}
+                        </div>
                       </div>
-                      <div className="w-1/5">
-                        <div className="flex flex-col space-y-6">
-                          <div className="flex justify-end">
-                            <ButtonRemoveItem />
-                          </div>
-                          <div>
-                            <div className="flex pt-2 items-center justify-end space-x-5 mt-auto">
-                              <div>
-                                <LineItemField
-                                  attribute="metadata"
-                                  tagElement="div"
-                                >
-                                  {({ attributeValue }: any) => {
-                                    return (
-                                      <>
-                                        <QuantitySelector />
-                                      </>
-                                    )
-                                  }}
-                                </LineItemField>
-                              </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-1/5">
+                  {Object.keys(item).map((key, index) => (
+                    <div className="flex flex-col space-y-6">
+                      <div className="flex justify-end">
+                        {index === 0 && (
+                          <NewButtonRemoveItem
+                            onSetShowModel={onSetShowModel}
+                            onDelete={onDelete}
+                            showModal={showModal}
+                            cartItem={item[key]}
+                            lineItemId={item[key]?.id}
+                          />
+                        )}
+                      </div>
+                      <div key={index}>
+                        <div>
+                          <div
+                            className={`flex pt-2 items-center justify-end space-x-5 mt-auto ${
+                              index === 1 ? "pt-6" : ""
+                            }`}
+                          >
+                            <div>
+                              <>
+                                <NewQuantitySelector
+                                  quantity={item[key].attributes?.quantity}
+                                  cartItem={item[key]}
+                                  updateItemQuantity={updateItemQuantity}
+                                />
+                              </>
+                            </div>
 
-                              <div>
-                                <LineItemAmount className="font-normal text-sm text-right text-gray-700" />
-                              </div>
+                            <div>
+                              <span
+                                className="className="
+                                font-normal
+                                text-sm
+                                text-right
+                                text-gray-700
+                              >
+                                {item[key].attributes?.formatted_total_amount}
+                              </span>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="pl-3">
-                      <LineItemOptionsAtributes />
-                    </div>
-                  </div>
-                )
-              }}
-            </LineItemField>
-          </LineItem>
-        ))}
-        <div className="w-40">
-          <LineItemsCount>
-            {({ quantity }) => (quantity ? <ContinueShopping /> : <div />)}
-          </LineItemsCount>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pl-3">
+                {Object.keys(item).map((key, index) => (
+                  <LineItemOptionsAtributes key={index} cartItem={item[key]} />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Empty cart */}
-        <LineItemsEmpty>
-          {({ quantity }) => {
-            if (quantity === undefined) {
-              return <LineItemsSkeleton />
-            }
-
-            if (quantity === 0) {
-              return <EmptyCartMessage />
-            }
-
-            return <div />
-          }}
-        </LineItemsEmpty>
+        <div className="w-40">
+          {cartItems?.length > 0 && <ContinueShopping />}
+        </div>
 
         {/* Return Url */}
         {settings.isValid && settings.returnUrl ? (
@@ -329,6 +243,11 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             </a>
           </div>
         ) : null}
+        <div>
+      {cartItems.length === 0 &&(
+        <EmptyCartMessage />
+      )}
+        </div>
       </div>
     </>
   )

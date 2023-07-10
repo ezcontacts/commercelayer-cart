@@ -9,9 +9,26 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonCheckout } from "./ButtonCheckout"
 import { CouponOrGiftCard } from "#components/Cart/CouponOrGiftCard"
+import { CouponCard } from "../CouponOrGiftCard/CouponCard"
 
-export const Totals: FC = () => {
+export const Totals = ({
+  orderDetails,
+  onSubmitCouponCode,
+  couponData,
+  removeCouponCode
+}: any) => {
   const { t } = useTranslation()
+
+  const attributes = orderDetails?.data?.attributes
+
+  if (!attributes || attributes === undefined) {
+    return null
+  }
+
+  const { formatted_subtotal_amount, formatted_total_amount } = attributes
+  const skus_count = attributes?.skus_count
+  const couponDiscount = attributes?.discount_amount_cents;
+  const appliedcoupon_code = attributes?.coupon_code;
 
   return (
     <div>
@@ -21,8 +38,16 @@ export const Totals: FC = () => {
         </span>
       </div>
       <div>
-        <CouponOrGiftCard />
+        <CouponCard
+          onSubmitCouponCode={onSubmitCouponCode}
+          couponData={couponData}
+          removeCouponCode={removeCouponCode}
+          couponDiscount={couponDiscount}
+          appliedcoupon_code={appliedcoupon_code}
+        />
       </div>
+
+      <div className="mt-2 mb-4 divider-line-cart-total-box"></div>
 
       <div className="pb-4">
         <span className="font-semibold text-sm leading-5 text-gray-700">
@@ -31,15 +56,8 @@ export const Totals: FC = () => {
         <span className="pl-1 font-normal text-xs leading-5 text-gray-400">
           {"("}
           <span>
-            <LineItemsCount>
-              {({ quantity }) =>
-                quantity ? (
-                  <span data-test-id="items-count">{quantity}</span>
-                ) : (
-                  <div />
-                )
-              }
-            </LineItemsCount>{" "}
+            <span data-test-id="items-count">{skus_count}</span>
+
             <span>{"items"}</span>
           </span>
           {")"}
@@ -50,14 +68,13 @@ export const Totals: FC = () => {
         <div className="font-normal text-sm leading-7 text-gray-500">
           Items total
         </div>
-        <div className="font-normal text-sm leading-7 text-gray-500">
-          <SubTotalAmount>
-            {({ priceCents, price }) => (
-              <span data-amount={priceCents} data-test-id="subtotal-amount">
-                {price}
-              </span>
-            )}
-          </SubTotalAmount>
+        <div className="font-semibold text-sm leading-7 text-gray-500">
+          <span
+            data-amount={formatted_subtotal_amount}
+            data-test-id="subtotal-amount"
+          >
+            {formatted_total_amount}
+          </span>
         </div>
       </div>
       <div className="pb-2">
@@ -81,43 +98,36 @@ export const Totals: FC = () => {
         </GiftCardAmount>
       </div>
       <div>
-        <DiscountAmount>
-          {({ priceCents, price }) =>
-            priceCents ? (
-              <div className="pb-2 flex items-center justify-between">
-                <div className="font-normal text-sm leading-7 text-gray-500">
-                  Coupon Discount
-                </div>
-                <div className="font-normal text-sm leading-7 text-gray-500">
-                  <div className="text-black mb-2 flex justify-between">
-                    <div
-                      className="font-semibold"
-                      data-test-id="discount-amount"
-                      data-amount={priceCents}
-                    >
-                      {price}
-                    </div>
-                  </div>
+        {couponDiscount !==0 && (
+          <div className="pb-2 flex items-center justify-between">
+            <div className="font-normal text-sm leading-7 text-gray-500">
+              Coupon Discount
+            </div>
+            <div className="font-normal text-sm leading-7 text-gray-500">
+              <div className="text-black mb-2 flex justify-between">
+                <div
+                  className="font-semibold"
+                  data-test-id="discount-amount"
+                  data-amount={couponDiscount}
+                >
+                 {"$"} {couponDiscount}
                 </div>
               </div>
-            ) : (
-              <div />
-            )
-          }
-        </DiscountAmount>
+            </div>
+          </div>
+        )}
       </div>
-      <div className="mt-2 mb-4 divider-line-cart"></div>
+      <div className="mt-2 mb-2 divider-line-cart-total-box"></div>
       <div className="pb-4 pt-4 flex items-center justify-between">
         <div className="font-semibold text-sm leading-5">Subtotal</div>
 
-        <div className="font-normal text-sm leading-5">
-          <TotalAmount>
-            {({ priceCents, price }) => (
-              <span data-test-id="total-amount" data-amount={priceCents}>
-                {price}
-              </span>
-            )}
-          </TotalAmount>
+        <div className="font-semibold text-sm leading-5">
+          <span
+            data-test-id="total-amount"
+            data-amount={formatted_subtotal_amount}
+          >
+            {formatted_subtotal_amount}
+          </span>
         </div>
       </div>
 

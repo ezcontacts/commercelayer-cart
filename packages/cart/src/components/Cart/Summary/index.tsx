@@ -35,6 +35,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ContinueShopping = () => {
+
     return (
       <div
         onClick={goContinueShopping}

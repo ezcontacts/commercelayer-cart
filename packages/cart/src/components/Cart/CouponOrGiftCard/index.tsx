@@ -15,6 +15,11 @@ export const CouponOrGiftCard: FC = () => {
     if (success) {
       setIsApplyCLicked(true)
     }
+    if(!success){
+      setTimeout(() => {
+        window.location.reload()
+      }, 2500)
+    }
   }
 
   const onClickremoveCoupnCode = () => {

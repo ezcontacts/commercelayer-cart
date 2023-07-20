@@ -10,15 +10,29 @@ export const isObjectEmpty = (objectName: any) => {
 
 export const LineItemOptionsAtributes: FC = () => {
   const LineItemOptionsNames = ({ lineItemOption }: any) => {
-    const { name, metadata } = lineItemOption
+    const { name, metadata , options} = lineItemOption
     if (!isObjectEmpty(metadata)) return null
+
+    if (!isObjectEmpty(metadata)) return null;
+
+    let displayValue = "";
+
+    if (options) {
+      // Check if each option property exists and add it to displayValue
+      if (options.Color) displayValue += options.Color;
+      if (options.Type) displayValue += ` - ${options.Type}`;
+      if (options.Density) displayValue += ` - ${options.Density}%`;
+    }
+
+    // If displayValue is empty, use the name property
+    if (!displayValue) displayValue = name;
 
     return (
       <ol
         className="font-normal text-xs leading-5 text-gray-400"
         style={{ listStyleType: "disc" }}
       >
-        <li>{name}</li>
+        <li>{displayValue}</li>
       </ol>
     )
   }

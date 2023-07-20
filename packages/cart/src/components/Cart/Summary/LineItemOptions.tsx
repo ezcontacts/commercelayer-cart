@@ -51,17 +51,17 @@ export const LineItemOptions = ({ LineItem }: any) => {
       <div className="pt-2 space-y-2">
         {Right && (
           <div className="flex items-end md:items-start">
-            <div className="w-20 md:w-28">
+            <div className="w-28">
               <span className="font-normal text-xxs leading-5 text-gray-400">
                 {"Right Eye (OD)"}
               </span>
             </div>
-            <div className="flex justify-start flex-wrap md:w-9/12">
+            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
               {Object.keys(Right).map((oneKey, i) => {
                 return (
                   <div key={i} className="pl-4 flex flex-col items-center md:flex-row">
                     <span className="font-semibold uppercase text-xxs leading-5 text-gray-700">
-                      {oneKey}:{" "}
+                      {oneKey}<span className="hidden md:visible">:{" "}</span>
                     </span>
                     <span className="md:pl-2 font-normal text-xs leading-5 text-gray-400">
                       {Right[oneKey]}
@@ -74,18 +74,18 @@ export const LineItemOptions = ({ LineItem }: any) => {
         )}
         {Left && (
           <div className="flex items-end  md:items-start">
-            <div className="w-20 md:w-28">
+            <div className="w-28">
               <span className="font-normal text-xxs leading-5 text-gray-400">
                 {"Left Eye (OS)"}
               </span>
             </div>
 
-            <div className="flex  flex-wrap md:w-9/12">
+            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
               {Object.keys(Left).map((oneKey, i) => {
                 return (
                   <div key={i} className="pl-4 flex flex-col items-center md:flex-row">
                     <span className="font-semibold uppercase text-xxs leading-5 text-gray-700">
-                      {oneKey}:{" "}
+                      {oneKey}<span className="hidden md:visible">:{" "}</span>
                     </span>
                     <span className="md:pl-2 font-normal text-xs leading-5 text-gray-400">
                       {Left[oneKey]}

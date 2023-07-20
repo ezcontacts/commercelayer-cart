@@ -119,7 +119,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   {attributeValue?.brandName}
                                 </div>
                               )}
-
+    
                               <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
                                 {attributeValue?.skuDisplayName}
                               </div>
@@ -131,6 +131,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                           </div>
                           <div>
+                          
                             {attributeValue?.frame_size && (
                               <div className="pt-2">
                                 <div className="flex gap-1 text-sm">
@@ -154,7 +155,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   </div>
                                 </div>
                               </div>
-                            )}
+                            )}  
+                            <div className="pl-3 pt-3">
+                              <LineItemOptionsAtributes />
+                            </div>
                             <LineItemOptions
                               LineItem={attributeValue}
                             />

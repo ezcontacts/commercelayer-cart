@@ -24,6 +24,7 @@ export const LineItemOptionsAtributes: FC = () => {
       if (options.Density) displayValue += ` - ${options.Density}%`;
     }
 
+
     // If displayValue is empty, use the name property
     if (!displayValue) displayValue = name;
 

@@ -296,12 +296,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             </LineItemField>
           </LineItem>
         ))}
-        <div className="w-40">
-          <LineItemsCount>
-            {({ quantity }) => (quantity ? <ContinueShopping /> : <div />)}
-          </LineItemsCount>
-        </div>
-
         {/* Empty cart */}
         <LineItemsEmpty>
           {({ quantity }) => {
@@ -316,6 +310,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             return <div />
           }}
         </LineItemsEmpty>
+        
+        <div className="w-40">
+         <ContinueShopping /> 
+        </div>
 
         {/* Return Url */}
         {settings.isValid && settings.returnUrl ? (

@@ -20,6 +20,7 @@ import { EmptyCartMessage } from "#components/atoms/EmptyCartMessage"
 import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
+import { LiaTimesSolid } from "react-icons/lia"
 
 type Props = {
   listTypes: LineItemType[]
@@ -67,16 +68,17 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ShoppingHeaderCart = (
-    <div className="text-lg pb-6 leading-6 text-gray-700">
+    <div className="text-lg pb-6 leading-6 text-gray-700 flex items-center justify-between" >
       <LineItemsCount>
         {({ quantity }) =>
           quantity ? (
             <span data-test-id="items-count"> Shopping Cart ({quantity})</span>
           ) : (
-            <div />
+            <div></div>
           )
         }
       </LineItemsCount>
+      <div onClick={goContinueShopping}><LiaTimesSolid/></div>
     </div>
   )
 
@@ -304,7 +306,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             {({ quantity }) => (quantity ? <ContinueShopping /> : <div />)}
           </LineItemsCount>
         </div>
-
+      </div>
         {/* Empty cart */}
         <LineItemsEmpty>
           {({ quantity }) => {
@@ -319,6 +321,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             return <div />
           }}
         </LineItemsEmpty>
+        
+        <div className="w-40">
+         <ContinueShopping /> 
+        </div>
 
         {/* Return Url */}
         {settings.isValid && settings.returnUrl ? (
@@ -332,8 +338,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
               &lt; {t("general.returnUrlLabel")}
             </a>
           </div>
-        ) : null}
-      </div>
+        ) : null}   
     </>
   )
 }

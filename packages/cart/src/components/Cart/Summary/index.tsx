@@ -36,6 +36,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ContinueShopping = () => {
+
     return (
       <div
         onClick={goContinueShopping}
@@ -317,6 +318,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             return <div />
           }}
         </LineItemsEmpty>
+        
+        <div className="w-40">
+         <ContinueShopping /> 
+        </div>
 
         {/* Return Url */}
         {settings.isValid && settings.returnUrl ? (

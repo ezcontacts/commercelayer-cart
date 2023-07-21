@@ -65,20 +65,20 @@ export const LineItemOptions = ({ LineItem }: any) => {
     return (
       <div className="pt-2 space-y-2">
         {Right && (
-          <div className="flex items-start">
+          <div className="flex items-end md:items-start">
             <div className="w-28">
               <span className="font-normal text-xxs leading-5 text-gray-400">
                 {"Right Eye (OD)"}
               </span>
             </div>
-            <div className="flex justify-start  w-9/12 flex-wrap">
+            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
               {Object.keys(Right).map((oneKey, i) => {
                 return (
-                  <div key={i} className="pl-4">
+                  <div key={i} className="pl-4 flex flex-col items-center md:flex-row">
                     <span className="font-semibold uppercase text-xxs leading-5 text-gray-700">
-                      {oneKey}:{" "}
+                      {oneKey}<span className="hidden md:visible">:{" "}</span>
                     </span>
-                    <span className="pl-2 font-normal text-xs leading-5 text-gray-400">
+                    <span className="md:pl-2 font-normal text-xs leading-5 text-gray-400">
                       {Right[oneKey]}
                     </span>
                   </div>
@@ -88,21 +88,21 @@ export const LineItemOptions = ({ LineItem }: any) => {
           </div>
         )}
         {Left && (
-          <div className="flex items-start">
+          <div className="flex items-end  md:items-start">
             <div className="w-28">
               <span className="font-normal text-xxs leading-5 text-gray-400">
                 {"Left Eye (OS)"}
               </span>
             </div>
 
-            <div className="flex w-9/12 flex-wrap">
+            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
               {Object.keys(Left).map((oneKey, i) => {
                 return (
-                  <div key={i} className="pl-4">
+                  <div key={i} className="pl-4 flex flex-col items-center md:flex-row">
                     <span className="font-semibold uppercase text-xxs leading-5 text-gray-700">
-                      {oneKey}:{" "}
+                      {oneKey}<span className="hidden md:visible">:{" "}</span>
                     </span>
-                    <span className="pl-2 font-normal text-xs leading-5 text-gray-400">
+                    <span className="md:pl-2 font-normal text-xs leading-5 text-gray-400">
                       {Left[oneKey]}
                     </span>
                   </div>

@@ -78,7 +78,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           )
         }
       </LineItemsCount>
-      <div onClick={goContinueShopping}><LiaTimesSolid/></div>
+      {/* <div onClick={goContinueShopping}><LiaTimesSolid/></div> */}
     </div>
   )
 
@@ -318,10 +318,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             return <div />
           }}
         </LineItemsEmpty>
-        
-        <div className="w-40">
-         <ContinueShopping /> 
-        </div>
+
+        {/* <div className="w-40">
+         <ContinueShopping />
+        </div> */}
 
         {/* Return Url */}
         {settings.isValid && settings.returnUrl ? (
@@ -335,7 +335,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
               &lt; {t("general.returnUrlLabel")}
             </a>
           </div>
-        ) : null}   
+        ) : null}
     </>
   )
 }

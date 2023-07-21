@@ -12,6 +12,7 @@ import { EmbeddedCapabilities } from "#components/EmbeddedCapabilities"
 import { PageHeader } from "#components/PageHeader"
 import { PageLayout } from "#components/PageLayout"
 import { useSettings } from "#components/SettingsProvider"
+import PageFooter from "#components/PageFooter"
 
 const Cart: FC = () => {
   const { settings } = useSettings()
@@ -45,6 +46,7 @@ const Cart: FC = () => {
             }
             main={<Summary listTypes={["bundles", "skus", "gift_cards"]} />}
             aside={<Totals />}
+            bottom={<PageFooter/>}
           />
         </LineItemsContainer>
       </OrderContainer>

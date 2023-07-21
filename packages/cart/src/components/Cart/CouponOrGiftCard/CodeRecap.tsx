@@ -47,10 +47,15 @@ export const CodeRecap = ({ isApplyCLicked , onClickremoveCoupnCode}: any) => {
               })
                 .then((response) => response.json())
                 .then((data) => {
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 2500)
                   return data
                 })
                 .catch((error) => {
-                  return error
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 2500)
                 })
             }
 

@@ -2,10 +2,11 @@ import { VFC, ReactNode } from "react"
 import { isEmbedded } from "#utils/isEmbedded"
 
 type Props = {
-  top?: ReactNode
+  top?: ReactNode,
+  bottom?: ReactNode,
 } & InnerProps
 
-export const PageLayout: VFC<Props> = ({ top, main, aside }) => {
+export const PageLayout: VFC<Props> = ({ top, main, aside,bottom }) => {
   return isEmbedded() ? (
     <Inner main={main} aside={aside} />
   ) : (
@@ -13,6 +14,7 @@ export const PageLayout: VFC<Props> = ({ top, main, aside }) => {
       <div className="px-5 lg:px-20 xl:px-48 flex flex-col min-h-screen">
         {top && <div>{top}</div>}
         <Inner main={main} aside={aside} />
+        {bottom && <div>{bottom}</div>}
       </div>
     </div>
   )

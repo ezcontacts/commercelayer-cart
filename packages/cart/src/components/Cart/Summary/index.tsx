@@ -20,6 +20,7 @@ import { EmptyCartMessage } from "#components/atoms/EmptyCartMessage"
 import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
+import { LiaTimesSolid } from "react-icons/lia"
 
 type Props = {
   listTypes: LineItemType[]
@@ -67,16 +68,17 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ShoppingHeaderCart = (
-    <div className="text-lg pb-6 leading-6 text-gray-700">
+    <div className="text-lg pb-6 leading-6 text-gray-700 flex items-center justify-between" >
       <LineItemsCount>
         {({ quantity }) =>
           quantity ? (
             <span data-test-id="items-count"> Shopping Cart ({quantity})</span>
           ) : (
-            <div />
+            <div></div>
           )
         }
       </LineItemsCount>
+      {/* <div onClick={goContinueShopping}><LiaTimesSolid/></div> */}
     </div>
   )
 
@@ -301,7 +303,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             {({ quantity }) => (quantity ? <ContinueShopping /> : <div />)}
           </LineItemsCount>
         </div>
-
+      </div>
         {/* Empty cart */}
         <LineItemsEmpty>
           {({ quantity }) => {
@@ -317,6 +319,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           }}
         </LineItemsEmpty>
 
+        {/* <div className="w-40">
+         <ContinueShopping />
+        </div> */}
+
         {/* Return Url */}
         {settings.isValid && settings.returnUrl ? (
           <div className="pt-2 pb-8">
@@ -330,7 +336,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             </a>
           </div>
         ) : null}
-      </div>
     </>
   )
 }

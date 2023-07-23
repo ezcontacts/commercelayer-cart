@@ -311,7 +311,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           if (quantity === 0) {
             return <EmptyCartMessage />
           }
-
           return <div />
         }}
       </LineItemsEmpty>

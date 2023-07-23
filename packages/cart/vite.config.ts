@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
     plugins: preparePlugins({ analyzeBundle }),
     envPrefix: "PUBLIC_",
     server: {
-      port: 3001,
+      port: 3000,
     },
     base: `./`,
     build: {

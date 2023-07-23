@@ -68,7 +68,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ShoppingHeaderCart = (
-    <div className="text-lg pb-6 leading-6 text-gray-700 flex items-center justify-between" >
+    <div className="text-lg pb-6 leading-6 text-gray-700 flex items-center justify-between">
       <LineItemsCount>
         {({ quantity }) =>
           quantity ? (
@@ -78,7 +78,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           )
         }
       </LineItemsCount>
-      <div onClick={goContinueShopping}><LiaTimesSolid/></div>
+      <div className="cart-summary-mobile" onClick={goContinueShopping}><LiaTimesSolid /></div>
     </div>
   )
 
@@ -114,14 +114,14 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                     {({ attributeValue }: any) => {
                       return (
                         <div className="flex-col">
-                          <div className="flex justify-between"> 
+                          <div className="flex justify-between">
                             <div>
                               {attributeValue?.brandName && (
                                 <div className="cart-brandname">
                                   {attributeValue?.brandName}
                                 </div>
                               )}
-    
+
                               <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
                                 {attributeValue?.skuDisplayName}
                               </div>
@@ -133,7 +133,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                           </div>
                           <div>
-                          
                             {attributeValue?.frame_size && (
                               <div className="pt-2">
                                 <div className="flex gap-1 text-sm">
@@ -157,7 +156,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   </div>
                                 </div>
                               </div>
-                            )}  
+                            )}
                             <div className="pl-3 pt-3">
                               <LineItemOptionsAtributes />
                             </div>
@@ -301,44 +300,39 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             </LineItemField>
           </LineItem>
         ))}
-        <div className="w-40">
-          <LineItemsCount>
-            {({ quantity }) => (quantity ? <ContinueShopping /> : <div />)}
-          </LineItemsCount>
-        </div>
       </div>
-        {/* Empty cart */}
-        <LineItemsEmpty>
-          {({ quantity }) => {
-            if (quantity === undefined) {
-              return <LineItemsSkeleton />
-            }
+      {/* Empty cart */}
+      <LineItemsEmpty>
+        {({ quantity }) => {
+          if (quantity === undefined) {
+            return <LineItemsSkeleton />
+          }
 
-            if (quantity === 0) {
-              return <EmptyCartMessage />
-            }
+          if (quantity === 0) {
+            return <EmptyCartMessage />
+          }
 
-            return <div />
-          }}
-        </LineItemsEmpty>
-        
-        <div className="w-40">
-         <ContinueShopping /> 
+          return <div />
+        }}
+      </LineItemsEmpty>
+
+      <div className="w-40">
+        <ContinueShopping />
+      </div>
+
+      {/* Return Url */}
+      {settings.isValid && settings.returnUrl ? (
+        <div className="pt-2 pb-8">
+          <a
+            data-test-id="return-url"
+            href={settings.returnUrl}
+            className="link-base text-xs font-bold"
+            target={isEmbedded() ? "_top" : undefined}
+          >
+            &lt; {t("general.returnUrlLabel")}
+          </a>
         </div>
-
-        {/* Return Url */}
-        {settings.isValid && settings.returnUrl ? (
-          <div className="pt-2 pb-8">
-            <a
-              data-test-id="return-url"
-              href={settings.returnUrl}
-              className="link-base text-xs font-bold"
-              target={isEmbedded() ? "_top" : undefined}
-            >
-              &lt; {t("general.returnUrlLabel")}
-            </a>
-          </div>
-        ) : null}   
+      ) : null}
     </>
   )
 }

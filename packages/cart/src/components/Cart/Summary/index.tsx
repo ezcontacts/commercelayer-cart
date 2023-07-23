@@ -68,7 +68,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ShoppingHeaderCart = (
-    <div className="text-lg pb-6 leading-6 text-gray-700 flex items-center justify-between" >
+    <div className="text-lg pb-6 leading-6 text-gray-700 flex items-center justify-between">
       <LineItemsCount>
         {({ quantity }) =>
           quantity ? (
@@ -78,7 +78,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           )
         }
       </LineItemsCount>
-      {/* <div onClick={goContinueShopping}><LiaTimesSolid/></div> */}
+      <div className="cart-summary-mobile" onClick={goContinueShopping}><LiaTimesSolid /></div>
     </div>
   )
 
@@ -101,71 +101,73 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           <LineItem key={type} type={type}>
             <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-2">
               <div
-                className="flex space-x-8"
+                className="flex space-x-4"
                 data-test-id={`line-item-${type}`}
               >
-                <div style={{ width: "20%" }}>
+                <div style={{ width: "16%" }}>
                   <div className="card-image-container">
                     <LineItemImage className="self-start md:self-center object-contain" />
                   </div>
                 </div>
-                <div style={{ width: "70%" }}>
-                  <div className="flex-1 flex flex-col">
-                    <div className="flex justify-between items-start gap-1">
-                      <div className="flex flex-col">
-                        <div>
-                          <LineItemField attribute="metadata" tagElement="div">
-                            {({ attributeValue }: any) => {
-                              return (
-                                <div className="flex-col">
-                                  {attributeValue?.brandName && (
-                                    <div className="cart-brandname">
-                                      {attributeValue?.brandName}
-                                    </div>
-                                  )}
-
-                                  <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
-                                    {attributeValue?.skuDisplayName}
-                                  </div>
-                                  {attributeValue?.frame_size && (
-                                    <div className="pt-2">
-                                      <div className="flex gap-1 text-sm">
-                                        <div className="font-semibold text-xs leading-5 text-gray-700">
-                                          {t("general.size")}:
-                                        </div>
-                                        <div className="font-normal text-xs leading-5 text-gray-400">
-                                          {attributeValue?.frame_size}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
-                                  {attributeValue?.color && (
-                                    <div className="pt-2">
-                                      <div className="flex gap-1 text-sm">
-                                        <div className="font-semibold text-xs leading-5 text-gray-700">
-                                          {t("general.color")}:
-                                        </div>
-                                        <div className="font-normal text-xs leading-5 text-gray-400">
-                                          {attributeValue?.color}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
+                <div style={{ width: "84%" }}>
+                  <LineItemField attribute="metadata" tagElement="div">
+                    {({ attributeValue }: any) => {
+                      return (
+                        <div className="flex-col">
+                          <div className="flex justify-between">
+                            <div>
+                              {attributeValue?.brandName && (
+                                <div className="cart-brandname">
+                                  {attributeValue?.brandName}
                                 </div>
-                              )
-                            }}
-                          </LineItemField>
+                              )}
+
+                              <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
+                                {attributeValue?.skuDisplayName}
+                              </div>
+                            </div>
+                            <div className="flex flex-col space-y-16">
+                              <div>
+                                <ButtonRemoveItem />
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            {attributeValue?.frame_size && (
+                              <div className="pt-2">
+                                <div className="flex gap-1 text-sm">
+                                  <div className="font-semibold text-xs leading-5 text-gray-700">
+                                    {t("general.size")}:
+                                  </div>
+                                  <div className="font-normal text-xs leading-5 text-gray-400">
+                                    {attributeValue?.frame_size}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            {attributeValue?.color && (
+                              <div className="pt-2">
+                                <div className="flex gap-1 text-sm">
+                                  <div className="font-semibold text-xs leading-5 text-gray-700">
+                                    {t("general.color")}:
+                                  </div>
+                                  <div className="font-normal text-xs leading-5 text-gray-400 w-60 truncate ">
+                                    {attributeValue?.color}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            <div className="pl-3 pt-3">
+                              <LineItemOptionsAtributes />
+                            </div>
+                            <LineItemOptions
+                              LineItem={attributeValue}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ width: "10%" }}>
-                  <div className="flex flex-col space-y-16">
-                    <div>
-                      <ButtonRemoveItem />
-                    </div>
-                  </div>
+                      )
+                    }}
+                  </LineItemField>
                 </div>
               </div>
               <div className="flex space-x-8">
@@ -298,44 +300,38 @@ export const Summary: FC<Props> = ({ listTypes }) => {
             </LineItemField>
           </LineItem>
         ))}
-        <div className="w-40">
-          <LineItemsCount>
-            {({ quantity }) => (quantity ? <ContinueShopping /> : <div />)}
-          </LineItemsCount>
-        </div>
       </div>
-        {/* Empty cart */}
-        <LineItemsEmpty>
-          {({ quantity }) => {
-            if (quantity === undefined) {
-              return <LineItemsSkeleton />
-            }
+      {/* Empty cart */}
+      <LineItemsEmpty>
+        {({ quantity }) => {
+          if (quantity === undefined) {
+            return <LineItemsSkeleton />
+          }
 
-            if (quantity === 0) {
-              return <EmptyCartMessage />
-            }
+          if (quantity === 0) {
+            return <EmptyCartMessage />
+          }
+          return <div />
+        }}
+      </LineItemsEmpty>
 
-            return <div />
-          }}
-        </LineItemsEmpty>
+      <div className="w-40">
+        <ContinueShopping />
+      </div>
 
-        {/* <div className="w-40">
-         <ContinueShopping />
-        </div> */}
-
-        {/* Return Url */}
-        {settings.isValid && settings.returnUrl ? (
-          <div className="pt-2 pb-8">
-            <a
-              data-test-id="return-url"
-              href={settings.returnUrl}
-              className="link-base text-xs font-bold"
-              target={isEmbedded() ? "_top" : undefined}
-            >
-              &lt; {t("general.returnUrlLabel")}
-            </a>
-          </div>
-        ) : null}
+      {/* Return Url */}
+      {settings.isValid && settings.returnUrl ? (
+        <div className="pt-2 pb-8">
+          <a
+            data-test-id="return-url"
+            href={settings.returnUrl}
+            className="link-base text-xs font-bold"
+            target={isEmbedded() ? "_top" : undefined}
+          >
+            &lt; {t("general.returnUrlLabel")}
+          </a>
+        </div>
+      ) : null}
     </>
   )
 }

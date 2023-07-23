@@ -25,5 +25,25 @@
   "scss.validate": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
-  }
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#eed738",
+    "activityBar.background": "#eed738",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#0d9382",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#eed738",
+    "statusBar.background": "#e0c613",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#b19c0f",
+    "statusBarItem.remoteBackground": "#e0c613",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#e0c613",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#e0c61399",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#e0c613"
 }

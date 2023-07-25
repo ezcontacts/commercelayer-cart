@@ -59,13 +59,13 @@ export const CodeForm = ({ onSubmitCouponCode, couponError }: any) => {
               <GiftCardOrCouponInput
                 id="code-input"
                 className={cn(
-                  "leading-3 text-sm font-semibold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+                  "leading-3 text-sm coupon-card-input-background font-semibold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
                   {
                     "-error ": couponError,
                   }
                 )}
-                placeholderTranslation={(codeType) =>
-                  t(`couponOrGift.placeholder.${codeType}`)
+                placeholderTranslation={() =>
+                  t(`Enter promo code`)
                 }
                 required={false}
                 data-test-id="coupon-input"

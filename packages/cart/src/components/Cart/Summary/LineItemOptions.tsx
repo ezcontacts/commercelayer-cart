@@ -411,8 +411,7 @@ export const GetLineOptionPowerAttribute: FC = () => {
 
         <ol
           className="font-normal text-xs leading-5 text-gray-400"
-          style={{ listStyleType: "disc" }}
-        >
+          >
           <li>{"+ "}{options.Power}</li>
         </ol>
       )

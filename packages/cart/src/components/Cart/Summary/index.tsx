@@ -14,6 +14,7 @@ import {
   LineItemOptions,
   LineItemOptionsAtributes,
   LineItemOptionsRespone,
+  GetLineOptionPowerAttribute,
 } from "./LineItemOptions"
 import { QuantitySelector } from "./QuantitySelector"
 import { EmptyCartMessage } from "#components/atoms/EmptyCartMessage"
@@ -27,7 +28,6 @@ type Props = {
 }
 
 export const Summary: FC<Props> = ({ listTypes }) => {
-
   const { t } = useTranslation()
   const { settings } = useSettings()
   let productNames = [] as any
@@ -36,7 +36,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ContinueShopping = () => {
-
     return (
       <div
         onClick={goContinueShopping}
@@ -78,7 +77,9 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           )
         }
       </LineItemsCount>
-      <div className="cart-summary-mobile" onClick={goContinueShopping}><LiaTimesSolid /></div>
+      <div className="cart-summary-mobile" onClick={goContinueShopping}>
+        <LiaTimesSolid />
+      </div>
     </div>
   )
 
@@ -160,9 +161,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             <div className="pl-3 pt-3">
                               <LineItemOptionsAtributes />
                             </div>
-                            <LineItemOptions
-                              LineItem={attributeValue}
-                            />
+                            <LineItemOptions LineItem={attributeValue} />
                           </div>
                         </div>
                       )
@@ -192,7 +191,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           <LineItem key={type} type={type}>
             <LineItemField attribute="metadata" tagElement="div">
               {({ attributeValue }: any) => {
-
                 return (
                   <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-5">
                     <div
@@ -243,6 +241,20 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                               </div>
                                               <div className="font-normal text-xs leading-5 text-gray-400">
                                                 {attributeValue?.color}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        )}
+
+                                        {attributeValue?.productType ===
+                                          "EYEGLASSES - READERS" && attributeValue?.external_price_type ==="READERS" && (
+                                          <div className="pt-2">
+                                            <div className="flex gap-1 text-sm">
+                                              <div className="font-semibold text-xs leading-5 text-gray-700">
+                                                {"Power"}:
+                                              </div>
+                                              <div className="font-normal text-xs leading-5 text-gray-400">
+                                                <GetLineOptionPowerAttribute />
                                               </div>
                                             </div>
                                           </div>

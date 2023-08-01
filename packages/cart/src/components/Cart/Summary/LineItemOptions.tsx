@@ -70,7 +70,7 @@ export const LineItemOptions = ({ LineItem }: any) => {
                 {"Right Eye (OD)"}
               </span>
             </div>
-            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
+            <div className="flex justify-around md:justify-start flex-wrap w-full">
               {Object.keys(Right).map((oneKey, i) => {
                 return (
                   <div
@@ -98,7 +98,7 @@ export const LineItemOptions = ({ LineItem }: any) => {
               </span>
             </div>
 
-            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
+            <div className="flex justify-around md:justify-start flex-wrap w-full">
               {Object.keys(Left).map((oneKey, i) => {
                 return (
                   <div

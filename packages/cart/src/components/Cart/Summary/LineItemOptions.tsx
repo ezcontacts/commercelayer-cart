@@ -22,6 +22,7 @@ export const LineItemOptionsAtributes: FC = () => {
       if (options.Color) displayValue += options.Color
       if (options.Type) displayValue += ` - ${options.Type}`
       if (options.Density) displayValue += ` - ${options.Density}%`
+      if (options.note && name) displayValue += name + " - " + options.note
     }
 
     // If displayValue is empty, use the name property
@@ -404,15 +405,15 @@ export const LineItemOptionsRespone: FC = () => {
 
 export const GetLineOptionPowerAttribute: FC = () => {
   const LineItemOptionsNames = ({ lineItemOption }: any) => {
-    const {options } = lineItemOption
+    const { options } = lineItemOption
 
     if (options && options.Power) {
       return (
-
-        <ol
-          className="font-normal text-xs leading-5 text-gray-400"
-          >
-          <li>{"+ "}{options.Power}</li>
+        <ol className="font-normal text-xs leading-5 text-gray-400">
+          <li>
+            {"+ "}
+            {options.Power}
+          </li>
         </ol>
       )
     }

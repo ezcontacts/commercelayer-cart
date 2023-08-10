@@ -6,6 +6,7 @@ import {
   LineItemsEmpty,
   LineItemField,
   LineItemsCount,
+  LineItemQuantity,
 } from "@commercelayer/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
@@ -247,18 +248,20 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                         )}
 
                                         {attributeValue?.productType ===
-                                          "EYEGLASSES - READERS" && attributeValue?.external_price_type ==="READERS" && (
-                                          <div className="pt-2">
-                                            <div className="flex gap-1 text-sm">
-                                              <div className="font-semibold text-xs leading-5 text-gray-700">
-                                                {"Power"}:
-                                              </div>
-                                              <div className="font-normal text-xs leading-5 text-gray-400">
-                                                <GetLineOptionPowerAttribute />
+                                          "EYEGLASSES - READERS" &&
+                                          attributeValue?.external_price_type ===
+                                            "READERS" && (
+                                            <div className="pt-2">
+                                              <div className="flex gap-1 text-sm">
+                                                <div className="font-semibold text-xs leading-5 text-gray-700">
+                                                  {"Power"}:
+                                                </div>
+                                                <div className="font-normal text-xs leading-5 text-gray-400">
+                                                  <GetLineOptionPowerAttribute />
+                                                </div>
                                               </div>
                                             </div>
-                                          </div>
-                                        )}
+                                          )}
                                       </div>
                                     </div>
                                     <div>
@@ -288,7 +291,23 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   {({ attributeValue }: any) => {
                                     return (
                                       <>
-                                        <QuantitySelector />
+                                        {attributeValue?.productType ===
+                                          "EYEGLASSES - READERS" &&
+                                        attributeValue?.external_price_type ===
+                                          "READERS" ? (
+                                          <>
+                                            <LineItemQuantity>
+                                              {({ quantity }) => (
+                                                <div className="flex items-center space-x-2 font-normal text-sm text-right text-gray-700">
+                                                  <div>{"Qty: "}</div>{" "}
+                                                  <div>{quantity}</div>
+                                                </div>
+                                              )}
+                                            </LineItemQuantity>
+                                          </>
+                                        ) : (
+                                          <QuantitySelector />
+                                        )}
                                       </>
                                     )
                                   }}

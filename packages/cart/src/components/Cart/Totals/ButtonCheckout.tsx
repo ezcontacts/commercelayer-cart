@@ -1,4 +1,4 @@
-import { CheckoutLink, LineItemsCount } from "@commercelayer/react-components"
+import { CheckoutLink, LineItemsCount } from "@ezcontacts/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

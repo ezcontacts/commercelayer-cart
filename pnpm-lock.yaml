@@ -17,7 +17,7 @@ importers:
       '@commercelayer/js-auth':
         specifier: ^2.3.0
         version: 2.3.0
-      '@commercelayer/react-components':
+      '@ezcontacts/react-components':
         specifier: 4.1.0
         version: 4.1.0(react-dom@18.2.0)(react@18.2.0)
       '@commercelayer/react-utils':
@@ -511,7 +511,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@commercelayer/react-components@4.1.0(react-dom@18.2.0)(react@18.2.0):
+  /@ezcontacts/react-components@4.1.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-CDq/57QeSWFfSK13BRc/J8bXdLlpocso9hmRMwS+GN6Uj4M0J4ag5YVDPVENJ160V3I9wKNUKbqEkQim/Z/L9w==}
     peerDependencies:
       react: ^18.0.0

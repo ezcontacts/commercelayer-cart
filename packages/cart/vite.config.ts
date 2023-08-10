@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
     plugins: preparePlugins({ analyzeBundle }),
     envPrefix: "PUBLIC_",
     server: {
-      port: 3000,
+      port: 3001,
     },
     base: `./`,
     build: {
@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => {
             ],
             commercelayer: [
               "@commercelayer/sdk",
-              "@commercelayer/react-components",
+              "@ezcontacts/react-components",
             ],
           },
         },

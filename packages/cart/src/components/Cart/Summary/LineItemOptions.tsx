@@ -1,7 +1,7 @@
 import {
   LineItemOptions as LineItemOptionsComponent,
   LineItemOption,
-} from "@commercelayer/react-components"
+} from "@ezcontacts/react-components"
 import { FC } from "react"
 
 export const isObjectEmpty = (objectName: any) => {

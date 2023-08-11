@@ -7,7 +7,7 @@ import {
   LineItemField,
   LineItemsCount,
   LineItemQuantity,
-} from "@commercelayer/react-components"
+} from "@ezcontacts/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonRemoveItem } from "./ButtonRemoveItem"

@@ -2,8 +2,8 @@ import { useSettings } from "#components/SettingsProvider"
 import {
   GiftCardOrCouponCode,
   GiftCardOrCouponRemoveButton,
-} from "@commercelayer/react-components"
-import { CodeType } from "@commercelayer/react-components/lib/esm/reducers/OrderReducer"
+} from "@ezcontacts/react-components"
+import { CodeType } from "@ezcontacts/react-components/lib/esm/reducers/OrderReducer"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

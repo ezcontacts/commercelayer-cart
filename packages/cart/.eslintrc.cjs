@@ -55,7 +55,7 @@ module.exports = {
           "HostedApp",
           // waiting for fix from: https://github.com/import-js/eslint-plugin-import/issues/1810
           // and be able to resolve package.json export paths
-          "@commercelayer/react-components/",
+          "@ezcontacts/react-components/",
         ],
       },
     ],

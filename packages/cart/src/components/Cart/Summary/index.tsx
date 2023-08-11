@@ -2,7 +2,6 @@ import {
   LineItemImage,
   LineItemAmount,
   LineItem,
-  LineItemType,
   LineItemsEmpty,
   LineItemField,
   LineItemsCount,
@@ -23,6 +22,7 @@ import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
 import { LiaTimesSolid } from "react-icons/lia"
+export type LineItemType = 'gift_cards' | 'payment_methods' | 'promotions' | 'shipments' | 'skus' | 'bundles' | 'adjustments';
 
 type Props = {
   listTypes: LineItemType[]

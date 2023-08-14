@@ -78,9 +78,9 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           )
         }
       </LineItemsCount>
-      <div className="cart-summary-mobile" onClick={goContinueShopping}>
+      {/* <div className="cart-summary-mobile" onClick={goContinueShopping}>
         <LiaTimesSolid />
-      </div>
+      </div> */}
     </div>
   )
 

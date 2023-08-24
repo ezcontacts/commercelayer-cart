@@ -1,4 +1,4 @@
-import { LineItemRemoveLink } from "@commercelayer/react-components"
+import { LineItemRemoveLink } from "@ezcontacts/react-components"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 

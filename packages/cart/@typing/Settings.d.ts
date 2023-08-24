@@ -6,7 +6,7 @@ declare module "HostedApp" {
      */
     accessToken: string
     /**
-     * Base endpoint URL to be used for API requests by `@commercelayer/react-components` library.
+     * Base endpoint URL to be used for API requests by `@ezcontacts/react-components` library.
      * Example: `https://yourdomain.commercelayer.io`
      * Read more at {@link https://docs.commercelayer.io/developers/api-specification#base-endpoint}.
      */

@@ -2,12 +2,11 @@ import {
   LineItemImage,
   LineItemAmount,
   LineItem,
-  LineItemType,
   LineItemsEmpty,
   LineItemField,
   LineItemsCount,
   LineItemQuantity,
-} from "@commercelayer/react-components"
+} from "@ezcontacts/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonRemoveItem } from "./ButtonRemoveItem"
@@ -23,6 +22,7 @@ import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
 import { LiaTimesSolid } from "react-icons/lia"
+export type LineItemType = 'gift_cards' | 'payment_methods' | 'promotions' | 'shipments' | 'skus' | 'bundles' | 'adjustments';
 
 type Props = {
   listTypes: LineItemType[]

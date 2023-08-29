@@ -219,7 +219,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                           </div>
                                         )}
 
-                                        <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
+                                        <div onClick={goContinueShopping} className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80">
                                           {attributeValue?.skuDisplayName}
                                         </div>
                                         {attributeValue?.frame_size && (

@@ -176,7 +176,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                   <LineItemOptionsRespone />
                 </div>
               </div>
-              <div className="flex space-x-8">
+              <div className="flex">
                 <div style={{ width: "20%" }}></div>
                 <div style={{ width: "80%" }}>
                   <SelectQuantity />

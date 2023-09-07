@@ -1,7 +1,7 @@
 import {
   LineItemOptions as LineItemOptionsComponent,
   LineItemOption,
-} from "@commercelayer/react-components"
+} from "@ezcontacts/react-components"
 import { FC } from "react"
 
 export const isObjectEmpty = (objectName: any) => {
@@ -10,23 +10,23 @@ export const isObjectEmpty = (objectName: any) => {
 
 export const LineItemOptionsAtributes: FC = () => {
   const LineItemOptionsNames = ({ lineItemOption }: any) => {
-    const { name, metadata , options} = lineItemOption
+    const { name, metadata, options } = lineItemOption
     if (!isObjectEmpty(metadata)) return null
 
-    if (!isObjectEmpty(metadata)) return null;
+    if (!isObjectEmpty(metadata)) return null
 
-    let displayValue = "";
+    let displayValue = ""
 
     if (options) {
       // Check if each option property exists and add it to displayValue
-      if (options.Color) displayValue += options.Color;
-      if (options.Type) displayValue += ` - ${options.Type}`;
-      if (options.Density) displayValue += ` - ${options.Density}%`;
+      if (options.Color) displayValue += options.Color
+      if (options.Type) displayValue += ` - ${options.Type}`
+      if (options.Density) displayValue += ` - ${options.Density}%`
+      if (options.note && name) displayValue += name + " - " + options.note
     }
 
-
     // If displayValue is empty, use the name property
-    if (!displayValue) displayValue = name;
+    if (!displayValue) displayValue = name
 
     return (
       <ol
@@ -71,12 +71,16 @@ export const LineItemOptions = ({ LineItem }: any) => {
                 {"Right Eye (OD)"}
               </span>
             </div>
-            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
+            <div className="flex justify-around md:justify-start flex-wrap w-full">
               {Object.keys(Right).map((oneKey, i) => {
                 return (
-                  <div key={i} className="pl-4 flex flex-col items-center md:flex-row">
+                  <div
+                    key={i}
+                    className="pl-4 flex flex-col items-center md:flex-row"
+                  >
                     <span className="font-semibold uppercase text-xxs leading-5 text-gray-700">
-                      {oneKey}<span className="hidden md:visible">:{" "}</span>
+                      {oneKey}
+                      <span className="hidden md:visible">: </span>
                     </span>
                     <span className="md:pl-2 font-normal text-xs leading-5 text-gray-400">
                       {Right[oneKey]}
@@ -95,12 +99,16 @@ export const LineItemOptions = ({ LineItem }: any) => {
               </span>
             </div>
 
-            <div className="flex justify-around md:justify-start flex-wrap w-full md:w-9/12">
+            <div className="flex justify-around md:justify-start flex-wrap w-full">
               {Object.keys(Left).map((oneKey, i) => {
                 return (
-                  <div key={i} className="pl-4 flex flex-col items-center md:flex-row">
+                  <div
+                    key={i}
+                    className="pl-4 flex flex-col items-center md:flex-row"
+                  >
                     <span className="font-semibold uppercase text-xxs leading-5 text-gray-700">
-                      {oneKey}<span className="hidden md:visible">:{" "}</span>
+                      {oneKey}
+                      <span className="hidden md:visible">: </span>
                     </span>
                     <span className="md:pl-2 font-normal text-xs leading-5 text-gray-400">
                       {Left[oneKey]}
@@ -386,6 +394,44 @@ export const LineItemOptionsRespone: FC = () => {
         {({ lineItemOption }) => {
           if (lineItemOption) {
             return <LineItemOptionsAtributes lineItemOption={lineItemOption} /> // your custom UI
+          } else {
+            return null
+          }
+        }}
+      </LineItemOption>
+    </LineItemOptionsComponent>
+  )
+}
+
+export const GetLineOptionPowerAttribute: FC = () => {
+  const LineItemOptionsNames = ({ lineItemOption }: any) => {
+    const { options } = lineItemOption
+
+    if (options && options.Power) {
+      return (
+        <ol className="font-normal text-xs leading-5 text-gray-400">
+          <li>
+            {"+ "}
+            {options.Power}
+          </li>
+        </ol>
+      )
+    }
+
+    // If Options.Power is not available, return an empty element
+    return null
+  }
+
+  return (
+    <LineItemOptionsComponent
+      showAll
+      showName={false}
+      data-test-id="line-item-options"
+    >
+      <LineItemOption data-test-id="item-option">
+        {({ lineItemOption }) => {
+          if (lineItemOption) {
+            return <LineItemOptionsNames lineItemOption={lineItemOption} />
           } else {
             return null
           }

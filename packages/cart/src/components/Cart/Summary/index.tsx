@@ -2,11 +2,11 @@ import {
   LineItemImage,
   LineItemAmount,
   LineItem,
-  LineItemType,
   LineItemsEmpty,
   LineItemField,
   LineItemsCount,
-} from "@commercelayer/react-components"
+  LineItemQuantity,
+} from "@ezcontacts/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonRemoveItem } from "./ButtonRemoveItem"
@@ -14,6 +14,7 @@ import {
   LineItemOptions,
   LineItemOptionsAtributes,
   LineItemOptionsRespone,
+  GetLineOptionPowerAttribute,
 } from "./LineItemOptions"
 import { QuantitySelector } from "./QuantitySelector"
 import { EmptyCartMessage } from "#components/atoms/EmptyCartMessage"
@@ -21,13 +22,13 @@ import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
 import { LiaTimesSolid } from "react-icons/lia"
+export type LineItemType = 'gift_cards' | 'payment_methods' | 'promotions' | 'shipments' | 'skus' | 'bundles' | 'adjustments';
 
 type Props = {
   listTypes: LineItemType[]
 }
 
 export const Summary: FC<Props> = ({ listTypes }) => {
-
   const { t } = useTranslation()
   const { settings } = useSettings()
   let productNames = [] as any
@@ -36,7 +37,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
 
   const ContinueShopping = () => {
-
     return (
       <div
         onClick={goContinueShopping}
@@ -78,7 +78,9 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           )
         }
       </LineItemsCount>
-      <div className="cart-summary-mobile" onClick={goContinueShopping}><LiaTimesSolid /></div>
+      {/* <div className="cart-summary-mobile" onClick={goContinueShopping}>
+        <LiaTimesSolid />
+      </div> */}
     </div>
   )
 
@@ -160,9 +162,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             <div className="pl-3 pt-3">
                               <LineItemOptionsAtributes />
                             </div>
-                            <LineItemOptions
-                              LineItem={attributeValue}
-                            />
+                            <LineItemOptions LineItem={attributeValue} />
                           </div>
                         </div>
                       )
@@ -176,7 +176,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                   <LineItemOptionsRespone />
                 </div>
               </div>
-              <div className="flex space-x-8">
+              <div className="flex">
                 <div style={{ width: "20%" }}></div>
                 <div style={{ width: "80%" }}>
                   <SelectQuantity />
@@ -192,7 +192,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
           <LineItem key={type} type={type}>
             <LineItemField attribute="metadata" tagElement="div">
               {({ attributeValue }: any) => {
-
                 return (
                   <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-5">
                     <div
@@ -220,7 +219,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                           </div>
                                         )}
 
-                                        <div className="font-semibold text-sm leading-5 text-gray-700 opacity-80">
+                                        <div onClick={goContinueShopping} className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80">
                                           {attributeValue?.skuDisplayName}
                                         </div>
                                         {attributeValue?.frame_size && (
@@ -247,6 +246,22 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                             </div>
                                           </div>
                                         )}
+
+                                        {attributeValue?.productType ===
+                                          "EYEGLASSES - READERS" &&
+                                          attributeValue?.external_price_type ===
+                                            "READERS" && (
+                                            <div className="pt-2">
+                                              <div className="flex gap-1 text-sm">
+                                                <div className="font-semibold text-xs leading-5 text-gray-700">
+                                                  {"Power"}:
+                                                </div>
+                                                <div className="font-normal text-xs leading-5 text-gray-400">
+                                                  <GetLineOptionPowerAttribute />
+                                                </div>
+                                              </div>
+                                            </div>
+                                          )}
                                       </div>
                                     </div>
                                     <div>
@@ -276,7 +291,23 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   {({ attributeValue }: any) => {
                                     return (
                                       <>
-                                        <QuantitySelector />
+                                        {attributeValue?.productType ===
+                                          "EYEGLASSES - READERS" &&
+                                        attributeValue?.external_price_type ===
+                                          "READERS" ? (
+                                          <>
+                                            <LineItemQuantity>
+                                              {({ quantity }) => (
+                                                <div className="flex items-center space-x-2 font-normal text-sm text-right text-gray-700">
+                                                  <div>{"Qty: "}</div>{" "}
+                                                  <div>{quantity}</div>
+                                                </div>
+                                              )}
+                                            </LineItemQuantity>
+                                          </>
+                                        ) : (
+                                          <QuantitySelector />
+                                        )}
                                       </>
                                     )
                                   }}

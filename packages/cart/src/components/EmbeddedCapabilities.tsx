@@ -1,4 +1,4 @@
-import useOrderContainer from "@commercelayer/react-components/hooks/useOrderContainer"
+import useOrderContainer from "@ezcontacts/react-components/hooks/useOrderContainer"
 import { FC, useEffect, useLayoutEffect } from "react"
 import { Helmet } from "react-helmet-async"
 

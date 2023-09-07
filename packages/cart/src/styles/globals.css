@@ -1,6 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=gotam-pro +One&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  font-family: "Gotham Pro", sans-serif;
+  font-feature-settings: normal;
+}
 
 .input-base {
   @apply text-black text-sm
@@ -54,7 +66,7 @@
 
 .button-checkout {
   cursor: pointer;
-  background: #e2242d;
+  background: #c91f27;
   border-radius: 4px;
 }
 .cart-brandname {

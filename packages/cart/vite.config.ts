@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => {
             ],
             commercelayer: [
               "@commercelayer/sdk",
-              "@commercelayer/react-components",
+              "@ezcontacts/react-components",
             ],
           },
         },

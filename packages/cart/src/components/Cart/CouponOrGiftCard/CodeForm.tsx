@@ -3,7 +3,7 @@ import {
   GiftCardOrCouponInput,
   GiftCardOrCouponSubmit,
   Errors,
-} from "@commercelayer/react-components"
+} from "@ezcontacts/react-components"
 import cn from "classnames"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"

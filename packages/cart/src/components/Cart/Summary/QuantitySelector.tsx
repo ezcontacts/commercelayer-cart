@@ -1,4 +1,4 @@
-import { Errors, LineItemQuantity } from "@commercelayer/react-components"
+import { Errors, LineItemQuantity } from "@ezcontacts/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -25,7 +25,7 @@ export const QuantitySelector: FC<Props> = () => {
       </LineItemQuantity>
       <Errors
         resource="line_items"
-        className="absolute top-[100%] block text-xs text-red-400"
+        className="absolute top-[100%] text-xs text-red-400 hidden"
         messages={[
           {
             code: "VALIDATION_ERROR",

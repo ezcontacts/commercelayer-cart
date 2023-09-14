@@ -307,6 +307,9 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                             "READERS") ||
                                         (attributeValue?.productType ===
                                           "EYEGLASSES" &&
+                                          attributeValue?.is_rx) ||
+                                        (attributeValue?.productType ===
+                                          "SUNGLASSES" &&
                                           attributeValue?.is_rx) ? (
                                           <>
                                             <LineItemQuantity>

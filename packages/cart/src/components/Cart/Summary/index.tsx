@@ -301,13 +301,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   {({ attributeValue }: any) => {
                                     return (
                                       <>
-                                        {(attributeValue?.productType ===
-                                          "EYEGLASSES - READERS" &&
-                                          attributeValue?.external_price_type ===
-                                            "READERS") ||
-                                        (attributeValue?.productType ===
-                                          "EYEGLASSES" &&
-                                          attributeValue?.is_rx) ? (
+                                        {attributeValue?.is_rx ? (
                                           <>
                                             <LineItemQuantity>
                                               {({ quantity }) => (

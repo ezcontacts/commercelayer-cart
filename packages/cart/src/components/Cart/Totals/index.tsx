@@ -22,12 +22,12 @@ export const Totals: FC = () => {
           if(quantity > 0) {
             return(
             <>
-              <div className="pb-4">
+              <div className="pb-4 hidden">
                 <span className="text-xs font-semibold leading-5 text-gray-700`">
                   {"Coupons"}
                 </span>
               </div>
-              <div>
+              <div className="hidden">
                 <CouponOrGiftCard />
               </div>
 
@@ -144,7 +144,7 @@ export const Totals: FC = () => {
                 </span>
               </div>
             </>)
-           } 
+           }
           else if (quantity === undefined ) {
             return (
               <SideSkeleton/>

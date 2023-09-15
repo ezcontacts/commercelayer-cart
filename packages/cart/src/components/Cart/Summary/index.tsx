@@ -22,7 +22,14 @@ import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
 import { LiaTimesSolid } from "react-icons/lia"
-export type LineItemType = 'gift_cards' | 'payment_methods' | 'promotions' | 'shipments' | 'skus' | 'bundles' | 'adjustments';
+export type LineItemType =
+  | "gift_cards"
+  | "payment_methods"
+  | "promotions"
+  | "shipments"
+  | "skus"
+  | "bundles"
+  | "adjustments"
 
 type Props = {
   listTypes: LineItemType[]
@@ -219,7 +226,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                           </div>
                                         )}
 
-                                        <div onClick={goContinueShopping} className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80">
+                                        <div
+                                          onClick={goContinueShopping}
+                                          className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80"
+                                        >
                                           {attributeValue?.skuDisplayName}
                                         </div>
                                         {attributeValue?.frame_size && (
@@ -291,10 +301,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                   {({ attributeValue }: any) => {
                                     return (
                                       <>
-                                        {attributeValue?.productType ===
-                                          "EYEGLASSES - READERS" &&
-                                        attributeValue?.external_price_type ===
-                                          "READERS" ? (
+                                        {attributeValue?.is_rx ? (
                                           <>
                                             <LineItemQuantity>
                                               {({ quantity }) => (

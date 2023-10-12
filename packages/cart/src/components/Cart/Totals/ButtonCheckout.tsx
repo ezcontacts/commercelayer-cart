@@ -7,6 +7,7 @@ import { isEmbedded } from "#utils/isEmbedded"
 import { useSettings } from "#components/SettingsProvider"
 import { navigate } from "wouter/use-location"
 import { getLogedinStatus } from "#utils/getLogedinStatus"
+import { saveUserActivitylogData } from "#utils/cllogs"
 export const ButtonCheckout: FC = () => {
   const islogged = getLogedinStatus()
   const { settings } = useSettings()
@@ -18,6 +19,14 @@ export const ButtonCheckout: FC = () => {
   }
 
   const onProceedCheckout = async () => {
+    let requestBody = {
+      requested_method: "onProceedCheckout",
+      cl_token: "eyJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRp",
+      requested_data: "",
+      response_data: "",
+    }
+    saveUserActivitylogData(requestBody)
+
     if (Number(islogged) === 1) {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)
@@ -32,6 +41,13 @@ export const ButtonCheckout: FC = () => {
   }
 
   const onProceedCheckoutAsGuest = async () => {
+    let requestBody = {
+      requested_method: "onProceedCheckoutAsGuest",
+      cl_token: "eyJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRp",
+      requested_data: "",
+      response_data: "",
+    }
+    saveUserActivitylogData(requestBody)
     if (settings.orderId) {
       let paymentToken = await getPaymentToken(settings.orderId)
       window.open(
@@ -48,7 +64,7 @@ export const ButtonCheckout: FC = () => {
           order: {
             id: orderId,
           },
-       },
+        },
       }
       return fetch(
         `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,

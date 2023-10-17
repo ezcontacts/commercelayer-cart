@@ -7,7 +7,7 @@ import {
   LineItemsCount,
   LineItemQuantity,
 } from "@ezcontacts/react-components"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonRemoveItem } from "./ButtonRemoveItem"
 import {
@@ -22,6 +22,7 @@ import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
 import { LiaTimesSolid } from "react-icons/lia"
+import { saveUserActivitylogData } from "#utils/cllogs"
 export type LineItemType =
   | "gift_cards"
   | "payment_methods"
@@ -36,6 +37,15 @@ type Props = {
 }
 
 export const Summary: FC<Props> = ({ listTypes }) => {
+  useEffect(() => {
+    let requestBody = {
+      requested_method: "View Cart",
+       requested_data: "",
+      response_data: "",
+    }
+    saveUserActivitylogData(requestBody)
+  }, [])
+
   const { t } = useTranslation()
   const { settings } = useSettings()
   let productNames = [] as any
@@ -373,3 +383,5 @@ export const Summary: FC<Props> = ({ listTypes }) => {
     </>
   )
 }
+
+

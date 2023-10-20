@@ -37,17 +37,20 @@ type Props = {
 }
 
 export const Summary: FC<Props> = ({ listTypes }) => {
+  const { settings } = useSettings()
+  if (!settings || !settings.isValid) {
+    return null
+  }
+  const { t } = useTranslation()
   useEffect(() => {
     let requestBody = {
       requested_method: "View Cart",
-       requested_data: "",
-      response_data: "",
+      requested_data: { "orderId-": settings.orderId },
+      response_data: "OK",
     }
     saveUserActivitylogData(requestBody)
   }, [])
 
-  const { t } = useTranslation()
-  const { settings } = useSettings()
   let productNames = [] as any
   const goContinueShopping = () => {
     window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
@@ -383,5 +386,3 @@ export const Summary: FC<Props> = ({ listTypes }) => {
     </>
   )
 }
-
-

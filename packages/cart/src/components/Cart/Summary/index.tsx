@@ -45,6 +45,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   useEffect(() => {
     let requestBody = {
       requested_method: "View Cart",
+      cl_token: settings.accessToken,
       requested_data: { "orderId-": settings.orderId },
       response_data: "OK",
     }

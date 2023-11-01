@@ -6,6 +6,7 @@ import {
   LineItemField,
   LineItemsCount,
   LineItemQuantity,
+  Errors,
 } from "@ezcontacts/react-components"
 import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
@@ -340,6 +341,13 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                               </div>
                             </div>
                           </div>
+                        </div>
+                        <div className="flex p-1">
+                          <Errors
+                            className="text-xs text-red-400"
+                            resource="line_items"
+                            field="quantity"
+                          />
                         </div>
                       </div>
                     </div>

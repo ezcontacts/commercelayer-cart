@@ -23,18 +23,6 @@ export const QuantitySelector: FC<Props> = () => {
           />
         )}
       </LineItemQuantity>
-      <Errors
-        resource="line_items"
-        className="absolute top-[100%] text-xs text-red-400 hidden"
-        messages={[
-          {
-            code: "VALIDATION_ERROR",
-            resource: "line_items",
-            field: "quantity",
-            message: t("general.quantityNotAvailable"),
-          },
-        ]}
-      />
     </div>
   )
 }

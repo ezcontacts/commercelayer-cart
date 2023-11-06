@@ -4,7 +4,7 @@ import {
   LineItemsCount,
   OrderContainer,
 } from "@ezcontacts/react-components"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Totals } from "./Totals"
 import { Summary } from "#components/Cart/Summary"
@@ -21,6 +21,17 @@ const Cart: FC = () => {
   if (!settings || !settings.isValid) {
     return null
   }
+
+  useEffect(() => {
+    fetch("https://api.ipify.org?format=json")
+      .then((response) => response.json())
+      .then((data) => {
+        const userIP = data.ip
+        localStorage.setItem("IP", userIP)
+      })
+      .catch((error) => console.error("Error fetching user IP:", error))
+  }, [])
+
   return (
     <CommerceLayer
       accessToken={settings.accessToken}
@@ -39,14 +50,10 @@ const Cart: FC = () => {
         <EmbeddedCapabilities.OrderRefresher />
         <LineItemsContainer>
           <PageLayout
-            top={
-              <PageHeader>
-
-              </PageHeader>
-            }
+            top={<PageHeader></PageHeader>}
             main={<Summary listTypes={["bundles", "skus", "gift_cards"]} />}
             aside={<Totals />}
-            bottom={<PageFooter/>}
+            bottom={<PageFooter />}
           />
         </LineItemsContainer>
       </OrderContainer>

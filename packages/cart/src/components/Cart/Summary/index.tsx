@@ -6,8 +6,9 @@ import {
   LineItemField,
   LineItemsCount,
   LineItemQuantity,
+  Errors,
 } from "@ezcontacts/react-components"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonRemoveItem } from "./ButtonRemoveItem"
 import {
@@ -22,6 +23,7 @@ import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
 import { isEmbedded } from "#utils/isEmbedded"
 import { LiaTimesSolid } from "react-icons/lia"
+import { saveUserActivitylogData } from "#utils/cllogs"
 export type LineItemType =
   | "gift_cards"
   | "payment_methods"
@@ -36,8 +38,21 @@ type Props = {
 }
 
 export const Summary: FC<Props> = ({ listTypes }) => {
-  const { t } = useTranslation()
   const { settings } = useSettings()
+  if (!settings || !settings.isValid) {
+    return null
+  }
+  const { t } = useTranslation()
+  useEffect(() => {
+    let requestBody = {
+      requested_method: "View Cart",
+      cl_token: settings.accessToken,
+      requested_data: { "orderId-": settings.orderId },
+      response_data: "OK",
+    }
+    saveUserActivitylogData(requestBody)
+  }, [])
+
   let productNames = [] as any
   const goContinueShopping = () => {
     window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
@@ -326,6 +341,13 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                               </div>
                             </div>
                           </div>
+                        </div>
+                        <div className="flex p-1">
+                          <Errors
+                            className="text-xs text-red-400"
+                            resource="line_items"
+                            field="quantity"
+                          />
                         </div>
                       </div>
                     </div>

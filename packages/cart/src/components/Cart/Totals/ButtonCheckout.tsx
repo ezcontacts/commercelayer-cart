@@ -7,6 +7,7 @@ import { isEmbedded } from "#utils/isEmbedded"
 import { useSettings } from "#components/SettingsProvider"
 import { navigate } from "wouter/use-location"
 import { getLogedinStatus } from "#utils/getLogedinStatus"
+import { saveUserActivitylogData } from "#utils/cllogs"
 export const ButtonCheckout: FC = () => {
   const islogged = getLogedinStatus()
   const { settings } = useSettings()
@@ -17,16 +18,36 @@ export const ButtonCheckout: FC = () => {
     return null
   }
 
+  const logData = (request: any) => {
+    let requestBody = {
+      requested_method: request.requested_method,
+      cl_token: settings.accessToken,
+      requested_data: request.requested_data,
+      response_data: request.response_data,
+    }
+    saveUserActivitylogData(requestBody)
+  }
+
   const onProceedCheckout = async () => {
     if (Number(islogged) === 1) {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)
+        logData({
+          requested_method: "onProceedCheckout",
+          requested_data: { "orderId-": settings.orderId },
+          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+        })
         window.open(
           `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
           "_self"
         )
       }
     } else {
+      logData({
+        requested_method: "onProceedCheckout",
+        requested_data: settings.orderId,
+        response_data: `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`,
+      })
       window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`
     }
   }
@@ -34,6 +55,11 @@ export const ButtonCheckout: FC = () => {
   const onProceedCheckoutAsGuest = async () => {
     if (settings.orderId) {
       let paymentToken = await getPaymentToken(settings.orderId)
+      logData({
+        requested_method: "onProceedCheckoutAsGuest",
+        requested_data: { "orderId-": settings.orderId },
+        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+      })
       window.open(
         `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
         "_self"
@@ -48,7 +74,7 @@ export const ButtonCheckout: FC = () => {
           order: {
             id: orderId,
           },
-       },
+        },
       }
       return fetch(
         `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/payment/v1/payment-token`,

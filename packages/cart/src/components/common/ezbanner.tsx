@@ -1,7 +1,19 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export const Ezbanner: React.FC = () => {
   const [showBanner, setShowBanner] = useState(true)
+
+  useEffect(() => {
+    const bannerShown = localStorage.getItem("bannerShownCart")
+    if (bannerShown) {
+      setShowBanner(false)
+    }
+  }, [])
+
+  const handleCloseBanner = () => {
+    localStorage.setItem("bannerShownCart", "true")
+    setShowBanner(false)
+  }
 
   return (
     <>
@@ -16,7 +28,7 @@ export const Ezbanner: React.FC = () => {
             </strong>
             <span className="ml-2 text-xs">we hope you like it.</span>
           </div>
-          <div className="cursor-pointer" onClick={()=>setShowBanner(false)}>
+          <div className="cursor-pointer" onClick={handleCloseBanner}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30px"
@@ -41,3 +53,5 @@ export const Ezbanner: React.FC = () => {
     </>
   )
 }
+
+

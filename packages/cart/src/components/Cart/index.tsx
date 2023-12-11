@@ -34,11 +34,11 @@ const Cart: FC = () => {
 
   return (
     <CommerceLayer
-      accessToken={"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRpb24iOnsiaWQiOiJkWGttWkZhb1FSIiwic2x1ZyI6ImV6LWNvbnRhY3RzIiwiZW50ZXJwcmlzZSI6dHJ1ZX0sIm93bmVyIjp7ImlkIjoia2J3eWhKYW15ZyIsInR5cGUiOiJDdXN0b21lciJ9LCJhcHBsaWNhdGlvbiI6eyJpZCI6IiIsImtpbmQiOiJzYWxlc19jaGFubmVsIiwicHVibGljIjp0cnVlfSwibWFya2V0Ijp7ImlkIjpbIkJseHJKaHdZZWoiXSwicHJpY2VfbGlzdF9pZCI6IllsRUdtQ3hBTkIiLCJzdG9ja19sb2NhdGlvbl9pZHMiOlsiQm5EUWd1RXFvRyIsIkVuQUx4dWRYTE0iLCJnbldvbXVwanFuIiwicWtQYmV1clpLbiIsIlJNTEJ6dWJnT0ciLCJ2TVF3anVvandHIl19LCJleHAiOjE3MDIxNzg3NjAsInJhbmQiOjAuNjIsInRlc3QiOnRydWV9.s4xzBcAhFzE6-zXkyXWiD4B8Ob6en1I21p_tAEZnsToDBR0V1dWHAMQHb4yrtUg3iOlI70bW86du_7wvcafp2g"}
+      accessToken={settings.accessToken}
       endpoint={settings.endpoint}
     >
       <OrderContainer
-        orderId={"oKkhYexLvX"}
+        orderId={settings.orderId}
         attributes={{
           cart_url: settings.cartUrl || window.location.href,
         }}

@@ -4,6 +4,7 @@ import { FC, ReactNode } from "react"
 import { CompanyLogo } from "#components/CompanyLogo"
 import { SkeletonItem } from "#components/Skeleton/Item"
 import { isEmbedded } from "#utils/isEmbedded"
+import { Ezbanner } from "./common/ezbanner"
 
 type Props = {
   /**
@@ -21,6 +22,9 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
     // we don't need page header when app is working in embedded mode
     return null
   }
+  const goContinueShopping = () => {
+    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
+  }
 
   return (
     <div
@@ -29,10 +33,10 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
       })}
       data-test-id="cart-header"
     >
-      <div className="py-8 border-b border-b-gray-200">
+      <div className="py-8 border-b border-b-gray-200 cursor-pointer" onClick={goContinueShopping} >
         <CompanyLogo />
       </div>
-      <div className="flex justify-between items-center py-11">
+      <div className="flex justify-between items-center pb-6">
         {isLoading ? (
           <>
             <SkeletonItem className="w-1/12 h-[36px]" />
@@ -42,6 +46,7 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
           children
         )}
       </div>
+      <Ezbanner />
     </div>
   )
 }

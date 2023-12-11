@@ -8,6 +8,10 @@ export const CompanyLogo: FC = () => {
   const { isLoading, settings } = useSettings()
   const returnUrl = settings.isValid ? settings.returnUrl : undefined
 
+  const goContinueShopping = () => {
+    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
+  }
+
   return (
     <>
       {isLoading ? (
@@ -17,7 +21,9 @@ export const CompanyLogo: FC = () => {
           <img
             src={settings.logoUrl}
             alt={settings.companyName}
-            className="h-[40px]"
+            className="h-[40px] cursor-pointer"
+            onClick={goContinueShopping}
+
           />
         </ReturnLink>
       ) : settings.companyName ? (

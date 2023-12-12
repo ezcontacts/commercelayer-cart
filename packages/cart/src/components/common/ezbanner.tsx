@@ -1,17 +1,25 @@
+import { useSettings } from "#components/SettingsProvider"
 import { useState, useEffect } from "react"
 
 export const Ezbanner: React.FC = () => {
+  const { settings } = useSettings()
+
+  if (!settings || !settings.isValid) {
+    return null
+  }
   const [showBanner, setShowBanner] = useState(true)
 
   useEffect(() => {
     const bannerShown = localStorage.getItem("bannerShownCart")
-    if (bannerShown) {
+    const userAccessToken = localStorage.getItem("userToken")
+    if (bannerShown && userAccessToken === settings.accessToken) {
       setShowBanner(false)
     }
   }, [])
 
   const handleCloseBanner = () => {
     localStorage.setItem("bannerShownCart", "true")
+    localStorage.setItem("userToken", settings.accessToken)
     setShowBanner(false)
   }
 
@@ -53,5 +61,3 @@ export const Ezbanner: React.FC = () => {
     </>
   )
 }
-
-

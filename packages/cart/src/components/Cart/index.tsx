@@ -1,10 +1,9 @@
 import {
   CommerceLayer,
   LineItemsContainer,
-  LineItemsCount,
   OrderContainer,
 } from "@ezcontacts/react-components"
-import { FC, useEffect } from "react"
+import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Totals } from "./Totals"
 import { Summary } from "#components/Cart/Summary"
@@ -15,6 +14,7 @@ import { useSettings } from "#components/SettingsProvider"
 import PageFooter from "#components/PageFooter"
 
 const Cart: FC = () => {
+  const [userEmail, setuserEmail] = useState("")
   const { settings } = useSettings()
   const { t } = useTranslation()
 
@@ -34,7 +34,7 @@ const Cart: FC = () => {
 
   return (
     <CommerceLayer
-      accessToken={settings.accessToken}
+    accessToken={settings.accessToken}
       endpoint={settings.endpoint}
     >
       <OrderContainer
@@ -42,15 +42,17 @@ const Cart: FC = () => {
         attributes={{
           cart_url: settings.cartUrl || window.location.href,
         }}
-        fetchOrder={() => {
-          // send update event to parent iframe if iframe-resizer is enabled
+        fetchOrder={(res) => {
+          if (res.customer_email) {
+            setuserEmail(res.customer_email)
+          }
           window.parentIFrame?.sendMessage({ type: "update" }, "*")
         }}
       >
         <EmbeddedCapabilities.OrderRefresher />
         <LineItemsContainer>
           <PageLayout
-            top={<PageHeader></PageHeader>}
+            top={<PageHeader userEmail={userEmail}></PageHeader>}
             main={<Summary listTypes={["bundles", "skus", "gift_cards"]} />}
             aside={<Totals />}
             bottom={<PageFooter />}

@@ -8,7 +8,7 @@ export const saveUserActivitylogData = async (request: any) => {
     ip_address: IP || "",
   }
 
-  return fetch(`${"https://odoo.ezcontacts.com"}/cl/saveClUserTempLogs`, {
+  return fetch(`${process.env.REACT_APP_PUBLIC_ODOO_PATH}}/cl/saveClUserTempLogs`, {
     headers: {
       Accept: "application/json",
     },

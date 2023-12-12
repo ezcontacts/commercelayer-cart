@@ -1,17 +1,30 @@
+import { useSettings } from "#components/SettingsProvider"
 import { useState, useEffect } from "react"
 
-export const Ezbanner: React.FC = () => {
+type Props = {
+  userEmail?: string
+}
+
+export const Ezbanner: React.FC<Props> = ({ userEmail }) => {
+
+  const { settings } = useSettings()
+
+  if (!settings || !settings.isValid) {
+    return null
+  }
   const [showBanner, setShowBanner] = useState(true)
 
   useEffect(() => {
     const bannerShown = localStorage.getItem("bannerShownCart")
-    if (bannerShown) {
+    const storageuserEmail = localStorage.getItem("userEmail")
+    if (bannerShown && storageuserEmail === userEmail) {
       setShowBanner(false)
     }
-  }, [])
+  }, [userEmail])
 
   const handleCloseBanner = () => {
     localStorage.setItem("bannerShownCart", "true")
+    localStorage.setItem("userEmail", userEmail ||"")
     setShowBanner(false)
   }
 
@@ -26,7 +39,7 @@ export const Ezbanner: React.FC = () => {
             <strong className="text-xs">
               📣 We're upgrading this page to enhance your shopping experience.
             </strong>
-            <span className="ml-2 text-xs">we hope you like it.</span>
+            <span className="ml-1 text-xs">We hope you like it.</span>
           </div>
           <div className="cursor-pointer" onClick={handleCloseBanner}>
             <svg
@@ -53,5 +66,3 @@ export const Ezbanner: React.FC = () => {
     </>
   )
 }
-
-

@@ -15,15 +15,15 @@ type Props = {
    * When this is `true` a Skeleton UI will be displayed instead of `children`
    */
   isLoading?: boolean
+  userEmail?: string
 }
 
-export const PageHeader: FC<Props> = ({ isLoading, children }) => {
+export const PageHeader: FC<Props> = ({ isLoading, children , userEmail}) => {
+
+
   if (isEmbedded()) {
     // we don't need page header when app is working in embedded mode
     return null
-  }
-  const goContinueShopping = () => {
-    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
   }
 
   return (
@@ -33,7 +33,7 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
       })}
       data-test-id="cart-header"
     >
-      <div className="py-8 border-b border-b-gray-200 cursor-pointer" onClick={goContinueShopping} >
+      <div className="py-8 border-b border-b-gray-200">
         <CompanyLogo />
       </div>
       <div className="flex justify-between items-center pb-6">
@@ -46,7 +46,7 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
           children
         )}
       </div>
-      <Ezbanner />
+      <Ezbanner userEmail={userEmail} />
     </div>
   )
 }

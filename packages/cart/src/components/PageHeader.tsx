@@ -15,9 +15,12 @@ type Props = {
    * When this is `true` a Skeleton UI will be displayed instead of `children`
    */
   isLoading?: boolean
+  userEmail?: string
 }
 
-export const PageHeader: FC<Props> = ({ isLoading, children }) => {
+export const PageHeader: FC<Props> = ({ isLoading, children , userEmail}) => {
+
+
   if (isEmbedded()) {
     // we don't need page header when app is working in embedded mode
     return null
@@ -43,7 +46,7 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
           children
         )}
       </div>
-      <Ezbanner />
+      <Ezbanner userEmail={userEmail} />
     </div>
   )
 }

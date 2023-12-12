@@ -1,7 +1,12 @@
 import { useSettings } from "#components/SettingsProvider"
 import { useState, useEffect } from "react"
 
-export const Ezbanner: React.FC = () => {
+type Props = {
+  userEmail?: string
+}
+
+export const Ezbanner: React.FC<Props> = ({ userEmail }) => {
+
   const { settings } = useSettings()
 
   if (!settings || !settings.isValid) {
@@ -11,15 +16,15 @@ export const Ezbanner: React.FC = () => {
 
   useEffect(() => {
     const bannerShown = localStorage.getItem("bannerShownCart")
-    const userAccessToken = localStorage.getItem("userToken")
-    if (bannerShown && userAccessToken === settings.accessToken) {
+    const storageuserEmail = localStorage.getItem("userEmail")
+    if (bannerShown && storageuserEmail === userEmail) {
       setShowBanner(false)
     }
-  }, [])
+  }, [userEmail])
 
   const handleCloseBanner = () => {
     localStorage.setItem("bannerShownCart", "true")
-    localStorage.setItem("userToken", settings.accessToken)
+    localStorage.setItem("userEmail", userEmail ||"")
     setShowBanner(false)
   }
 

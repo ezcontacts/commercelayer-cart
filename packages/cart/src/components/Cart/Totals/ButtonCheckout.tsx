@@ -35,10 +35,10 @@ export const ButtonCheckout: FC = () => {
         logData({
           requested_method: "onProceedCheckout",
           requested_data: { "orderId-": settings.orderId },
-          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1`,
         })
         window.open(
-          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1`,
           "_self"
         )
       }
@@ -54,14 +54,15 @@ export const ButtonCheckout: FC = () => {
 
   const onProceedCheckoutAsGuest = async () => {
     if (settings.orderId) {
+      localStorage.setItem("checkoutUserEmail", "")
       let paymentToken = await getPaymentToken(settings.orderId)
       logData({
         requested_method: "onProceedCheckoutAsGuest",
         requested_data: { "orderId-": settings.orderId },
-        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0`,
       })
       window.open(
-        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}`,
+        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0`,
         "_self"
       )
     }

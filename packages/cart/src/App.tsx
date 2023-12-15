@@ -8,12 +8,14 @@ import optimizely from "#utils/optimizely"
 
 import { EmbeddedCapabilities } from "#components/EmbeddedCapabilities"
 
-const user = {
-  id: "user123",
+optimizely.setUser({
+  id: 'user123',
   attributes: {
-    logged_in: "true",
-  },
-}
+    device: 'iPhone',
+    lifetime: 24738388,
+    is_logged_in: true,
+  }
+});
 
 function App(): JSX.Element {
   const basePath =
@@ -22,7 +24,7 @@ function App(): JSX.Element {
       : undefined
 
   return (
-    <OptimizelyProvider optimizely={optimizely} user={user}>
+    <OptimizelyProvider optimizely={optimizely}>
       <HelmetProvider>
         <EmbeddedCapabilities.IframeResizerInit />
         <Router base={basePath}>

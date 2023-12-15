@@ -30,6 +30,7 @@ export const ButtonCheckout: FC = () => {
 
   const logOptimisly = () => {
     if (optimizely?.track) {
+      optimizely.isFeatureEnabled("proceed_to_checkout");
       const IP = localStorage.getItem("IP")
       const eventKey = "proceed_to_checkout" // Replace with your valid event key
       const eventTags = {

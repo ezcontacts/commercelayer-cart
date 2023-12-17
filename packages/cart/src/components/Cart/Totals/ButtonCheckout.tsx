@@ -1,18 +1,19 @@
 import { LineItemsCount } from "@ezcontacts/react-components"
-import { FC, useContext } from "react"
+import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonCheckoutDisabled } from "#components/atoms/ButtonCheckoutDisabled"
 import { useSettings } from "#components/SettingsProvider"
 import { getLogedinStatus } from "#utils/getLogedinStatus"
 import { saveUserActivitylogData } from "#utils/cllogs"
-import { OptimizelyContext } from "@optimizely/react-sdk"
+import useLogMetricsData from "#utils/logClMetrics"
+
 
 export const ButtonCheckout: FC = () => {
-  const { optimizely } = useContext(OptimizelyContext)
+  const { logMetrics } = useLogMetricsData()
   const islogged = getLogedinStatus()
   const { settings } = useSettings()
   const { t } = useTranslation()
-  const label = t("general.gotToCheckoutCta")
+
 
   if (!settings || !settings.isValid) {
     return null
@@ -28,37 +29,8 @@ export const ButtonCheckout: FC = () => {
     saveUserActivitylogData(requestBody)
   }
 
-  const logOptimisly = () => {
-    if (optimizely?.track) {
-      optimizely.isFeatureEnabled("proceed_to_checkout");
-      const IP = localStorage.getItem("IP")
-      const eventKey = "proceed_to_checkout" // Replace with your valid event key
-      const eventTags = {
-        server_ip: IP,
-        country: "Germany",
-        city: "Frankfurt am Main",
-        region: "Hesse",
-        country_code: "DE",
-        postal_code: "60313",
-        continent_code: "",
-        os: "Windows",
-        device: "Desktop",
-        browser: "MSIE",
-        browser_version: "9.0",
-        Guest: "1",
-      }
-
-      optimizely?.onReady().then((res) => {
-        //remove this console logs once you are done with testing
-        console.log("res", res)
-        console.log("eventTags", eventTags)
-        optimizely?.track(eventKey, eventTags)
-      })
-    }
-  }
-
   const onProceedCheckout = async () => {
-    logOptimisly()
+    logMetrics("proceed_to_checkout")
     if (Number(islogged) === 1) {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)

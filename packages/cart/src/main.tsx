@@ -13,7 +13,19 @@ const user = {
   id: "user123",
   attributes: {
     logged_in: "true",
-   },
+    server_ip: "172.20.21.13",
+    country: "Germany",
+    city: "Frankfurt am Main",
+    region: "Hesse",
+    country_code: "IN",
+    postal_code: "60313",
+    continent_code: "",
+    os: "Windows",
+    device: "Desktop",
+    browser: "MSIE",
+    browser_version: "9.0",
+    Guest: "1",
+  },
 }
 
 createRoot(document.getElementById("root") as HTMLElement).render(

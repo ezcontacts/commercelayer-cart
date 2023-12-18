@@ -12,6 +12,7 @@ import { PageHeader } from "#components/PageHeader"
 import { PageLayout } from "#components/PageLayout"
 import { useSettings } from "#components/SettingsProvider"
 import PageFooter from "#components/PageFooter"
+import { s } from "vitest/dist/index-5aad25c1"
 
 const Cart: FC = () => {
   const [userEmail, setuserEmail] = useState("")
@@ -34,11 +35,11 @@ const Cart: FC = () => {
 
   return (
     <CommerceLayer
-    accessToken={"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRpb24iOnsiaWQiOiJkWGttWkZhb1FSIiwic2x1ZyI6ImV6LWNvbnRhY3RzIiwiZW50ZXJwcmlzZSI6dHJ1ZX0sIm93bmVyIjp7ImlkIjoiblZSUGhSS2RiRSIsInR5cGUiOiJDdXN0b21lciJ9LCJhcHBsaWNhdGlvbiI6eyJpZCI6IiIsImtpbmQiOiJzYWxlc19jaGFubmVsIiwicHVibGljIjp0cnVlfSwibWFya2V0Ijp7ImlkIjpbIkJseHJKaHdZZWoiXSwicHJpY2VfbGlzdF9pZCI6IllsRUdtQ3hBTkIiLCJzdG9ja19sb2NhdGlvbl9pZHMiOlsiQm5EUWd1RXFvRyIsIkVuQUx4dWRYTE0iLCJnbldvbXVwanFuIiwicWtQYmV1clpLbiIsIlJNTEJ6dWJnT0ciLCJ2TVF3anVvandHIl19LCJleHAiOjE3MDI5MjIxOTEsInJhbmQiOjAuMjEsInRlc3QiOnRydWV9.KOxVKaHLYFsex8bGhtUrDAkoVPj-uWYnqsQ7nHyl_2QKR_v2wyoJSowtqSKZ00yGUynARubWWsSwlwHVERdo6A"}
+    accessToken={settings.accessToken}
       endpoint={settings.endpoint}
     >
       <OrderContainer
-        orderId={"GWrhZoJrge"}
+        orderId={settings.orderId}
         attributes={{
           cart_url: settings.cartUrl || window.location.href,
         }}

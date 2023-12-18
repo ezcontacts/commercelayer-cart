@@ -4,6 +4,7 @@ import { FC, ReactNode } from "react"
 import { CompanyLogo } from "#components/CompanyLogo"
 import { SkeletonItem } from "#components/Skeleton/Item"
 import { isEmbedded } from "#utils/isEmbedded"
+import { Ezbanner } from "./common/ezbanner"
 
 type Props = {
   /**
@@ -14,9 +15,12 @@ type Props = {
    * When this is `true` a Skeleton UI will be displayed instead of `children`
    */
   isLoading?: boolean
+  userEmail?: string
 }
 
-export const PageHeader: FC<Props> = ({ isLoading, children }) => {
+export const PageHeader: FC<Props> = ({ isLoading, children , userEmail}) => {
+
+
   if (isEmbedded()) {
     // we don't need page header when app is working in embedded mode
     return null
@@ -32,7 +36,7 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
       <div className="py-8 border-b border-b-gray-200">
         <CompanyLogo />
       </div>
-      <div className="flex justify-between items-center py-11">
+      <div className="flex justify-between items-center pb-6">
         {isLoading ? (
           <>
             <SkeletonItem className="w-1/12 h-[36px]" />
@@ -42,6 +46,7 @@ export const PageHeader: FC<Props> = ({ isLoading, children }) => {
           children
         )}
       </div>
+      <Ezbanner userEmail={userEmail} />
     </div>
   )
 }

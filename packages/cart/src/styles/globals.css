@@ -86,3 +86,37 @@ html {
 .coupon-card-input-background {
   background: #fbfbfb !important;
 }
+
+.btn-background {
+  background: #c91f27 !important;
+  border-radius: 6px !important;
+}
+
+.four-zero-four-img {
+  width: 440px;
+  margin-bottom: 30px;
+}
+.four-zero-four-main-text {
+  font-size: 36px;
+  font-weight: 700;
+}
+.four-zero-four-sub-text {
+  font-size: 15px;
+}
+.four-zero-four-btn {
+  margin-top: 30px;
+  padding: 11px 20px;
+  width: 280px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: #fff;
+  border-radius: 4px !important;
+}
+
+.banner-background {
+  border-left: 4px solid #4c84a0;
+  border-radius: 4px;
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #308a9d;
+}

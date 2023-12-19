@@ -1,6 +1,6 @@
 import { HelmetProvider } from "react-helmet-async"
 import { Router, Route, Switch } from "wouter"
-
+import { useLocation } from 'wouter';
 import CartPage from "./pages/CartPage"
 import ErrorPage from "./pages/ErrorPage"
 import { OptimizelyProvider } from "@optimizely/react-sdk"
@@ -18,6 +18,9 @@ optimizely.setUser({
 });
 
 function App(): JSX.Element {
+const [location] = useLocation();
+const orderId = location.split('/').pop();
+console.log(orderId);
   const basePath =
     import.meta.env.PUBLIC_PROJECT_PATH != null
       ? `/${import.meta.env.PUBLIC_PROJECT_PATH}`

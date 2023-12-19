@@ -44,6 +44,7 @@ const Cart: FC = () => {
           cart_url: settings.cartUrl || window.location.href,
         }}
         fetchOrder={(res) => {
+          console.log("order-status", res.status)
           if (res.customer_email) {
             setuserEmail(res.customer_email)
           }

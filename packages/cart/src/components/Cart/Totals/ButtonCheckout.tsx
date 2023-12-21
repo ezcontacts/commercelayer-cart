@@ -3,7 +3,7 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { ButtonCheckoutDisabled } from "#components/atoms/ButtonCheckoutDisabled"
 import { useSettings } from "#components/SettingsProvider"
-import { getLogedinStatus } from "#utils/getLogedinStatus"
+import { getLogedinStatus, getVisitorId } from "#utils/getLogedinStatus"
 import { saveUserActivitylogData } from "#utils/cllogs"
 import useLogMetricsData from "#utils/logClMetrics"
 
@@ -11,6 +11,7 @@ import useLogMetricsData from "#utils/logClMetrics"
 export const ButtonCheckout: FC = () => {
   const { logMetrics } = useLogMetricsData()
   const islogged = getLogedinStatus()
+  const visitoId = getVisitorId()
   const { settings } = useSettings()
   const { t } = useTranslation()
 
@@ -37,10 +38,10 @@ export const ButtonCheckout: FC = () => {
         logData({
           requested_method: "onProceedCheckout",
           requested_data: { "orderId-": settings.orderId },
-          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1`,
+          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}`,
         })
         window.open(
-          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1`,
+          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}`,
           "_self"
         )
       }
@@ -61,10 +62,10 @@ export const ButtonCheckout: FC = () => {
       logData({
         requested_method: "onProceedCheckoutAsGuest",
         requested_data: { "orderId-": settings.orderId },
-        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0`,
+        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}`,
       })
       window.open(
-        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0`,
+        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}`,
         "_self"
       )
     }

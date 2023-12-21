@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react"
 import { HelmetProvider } from "react-helmet-async"
 import { Router, Route, Switch, useLocation } from "wouter"
@@ -77,7 +78,7 @@ function App() {
       <OptimizelyProvider optimizely={optimizely}>
         <HelmetProvider>
           <EmbeddedCapabilities.IframeResizerInit />
-          <Router base={window.location.href}>
+          <Router base={basePath}>
             <Switch>
               <Route path={"/:orderId"}>
                 <CartPage />

@@ -1,4 +1,3 @@
-
 import React from "react"
 import { createRoot } from "react-dom/client"
 import "#styles/globals.css"
@@ -14,25 +13,38 @@ const getIp = async () => {
   const data = await response.json()
   const userResponse = await fetch(`https://ipapi.co/${data.ip}/json/`)
   const userData = await userResponse.json()
-  return userData
+  return {
+    ip: data.ip,
+    country: userData.country_name,
+    city: userData.city,
+    region: userData.region,
+    country_code: userData.country_code,
+    postal: userData.postal,
+    continent_code: userData.continent_code,
+    logged_in: "true",
+  }
 }
 
 const createUser = async () => {
+  var urlString = window?.location?.href
+  var url = new URL(urlString)
+  var queryParams = url?.searchParams
+  var visitorId = queryParams?.get("ezref")
   const userLocation = await getIp()
+  debugger
   return {
-    id: "user123",
+    id: visitorId ? visitorId : "user123",
     attributes: {
       logged_in: "true",
       server_ip: userLocation.ip,
       country: userLocation.country,
       city: userLocation.city,
-      region:  userLocation.region,
+      region: userLocation.region,
       country_code: userLocation.country_code,
       postal_code: userLocation.postal,
       continent_code: userLocation.continent_code,
       os: "windows",
       device: "desktop",
-     Guest: "1",
     },
   }
 }

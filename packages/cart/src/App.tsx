@@ -1,8 +1,6 @@
 import React, { useEffect } from "react"
 import { HelmetProvider } from "react-helmet-async"
 import { Router, Route, Switch } from "wouter"
-import { OptimizelyProvider } from "@optimizely/react-sdk"
-import optimizely from "#utils/optimizely"
 import { EmbeddedCapabilities } from "#components/EmbeddedCapabilities"
 import CartPage from "./pages/CartPage"
 import ErrorPage from "./pages/ErrorPage"
@@ -26,7 +24,6 @@ const getOrderStatus = async () => {
     }
   )
   const data = await response.json()
-
   return data?.data?.attributes?.status
 }
 
@@ -59,35 +56,25 @@ function App() {
     import.meta.env.PUBLIC_PROJECT_PATH != null
       ? `/${import.meta.env.PUBLIC_PROJECT_PATH}`
       : undefined
-  optimizely?.setUser({
-    id: visitoId ? visitoId : "user123",
-    attributes: {
-      device: "iPhone",
-      lifetime: 24738388,
-      is_logged_in: true,
-    },
-  })
 
   return (
     <>
-      <OptimizelyProvider optimizely={optimizely}>
-        <HelmetProvider>
-          <EmbeddedCapabilities.IframeResizerInit />
-          <Router base={basePath}>
-            <Switch>
-              <Route path={"/404"}>
-                <ErrorPage />
-              </Route>
-              <Route path={"/:orderId"}>
-                <CartPage />
-              </Route>
-              <Route>
-                <ErrorPage />
-              </Route>
-            </Switch>
-          </Router>
-        </HelmetProvider>
-      </OptimizelyProvider>
+      <HelmetProvider>
+        <EmbeddedCapabilities.IframeResizerInit />
+        <Router base={basePath}>
+          <Switch>
+            <Route path={"/404"}>
+              <ErrorPage />
+            </Route>
+            <Route path={"/:orderId"}>
+              <CartPage />
+            </Route>
+            <Route>
+              <ErrorPage />
+            </Route>
+          </Switch>
+        </Router>
+      </HelmetProvider>
     </>
   )
 }

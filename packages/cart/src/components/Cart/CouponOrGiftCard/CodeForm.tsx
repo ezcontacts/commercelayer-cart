@@ -5,16 +5,17 @@ import {
   Errors,
 } from "@ezcontacts/react-components"
 import cn from "classnames"
-import { FC, useState } from "react"
+import {  useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export const CodeForm = ({ onSubmitCouponCode, couponError }: any) => {
+export const CodeForm = () => {
+  const [couponError, setCouponError] = useState(false)
   const { t } = useTranslation()
   return (
     <div>
       <GiftCardOrCouponForm
         onSubmit={({ success }) => {
-          onSubmitCouponCode(success)
+          setCouponError(!success)
         }}
       >
         <div className="flex w-full items-center justify-between jus pt-1 pb-4">
@@ -64,9 +65,7 @@ export const CodeForm = ({ onSubmitCouponCode, couponError }: any) => {
                     "-error ": couponError,
                   }
                 )}
-                placeholderTranslation={() =>
-                  t(`Enter promo code`)
-                }
+                placeholderTranslation={() => t(`Enter promo code`)}
                 required={false}
                 data-test-id="coupon-input"
               />

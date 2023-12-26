@@ -5,11 +5,12 @@ import {
   Errors,
 } from "@ezcontacts/react-components"
 import cn from "classnames"
-import {  useState } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export const CodeForm = () => {
   const [couponError, setCouponError] = useState(false)
+  const [couponCodeValue, setcouponCodeValue] = useState("")
   const { t } = useTranslation()
   return (
     <div>
@@ -68,12 +69,18 @@ export const CodeForm = () => {
                 placeholderTranslation={() => t(`Enter promo code`)}
                 required={false}
                 data-test-id="coupon-input"
+                onChange={(e) => {
+                  let value = e.target.value
+                  setcouponCodeValue(value)
+                }}
               />
             </div>
           </div>
           <div className="flex-end">
             <GiftCardOrCouponSubmit
-              className="font-normal text-xs leading-5 uppercase text-red-500"
+              className={`font-normal text-xs leading-5 uppercase text-red-500  ${
+                couponCodeValue === "" ? "opacity-50" : ""
+              }`}
               label={t("couponOrGift.submit")}
               data-test-id="coupon-submit"
             />

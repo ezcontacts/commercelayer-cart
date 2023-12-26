@@ -31,7 +31,6 @@ const createUser = async () => {
   var queryParams = url?.searchParams
   var visitorId = queryParams?.get("ezref")
   const userLocation = await getIp()
-  debugger
   return {
     id: visitorId ? visitorId : "user123",
     attributes: {

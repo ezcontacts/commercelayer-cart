@@ -51,6 +51,7 @@ const createUser = async () => {
 const renderApp = async () => {
   const user = await createUser()
 
+  console.log("user", user)
   createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
       <OptimizelyProvider optimizely={optimizely} user={user}>

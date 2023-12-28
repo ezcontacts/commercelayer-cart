@@ -56,6 +56,7 @@ export const ButtonCheckout: FC = () => {
   }
 
   const onProceedCheckoutAsGuest = async () => {
+    logMetrics("proceed_to_checkout")
     if (settings.orderId) {
       localStorage.setItem("checkoutUserEmail", "")
       let paymentToken = await getPaymentToken(settings.orderId)

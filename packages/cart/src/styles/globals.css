@@ -1,4 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=gotam-pro +One&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=gotam-pro +One&display=swap"); */
+
+@font-face {
+  font-family: "Gotham Pro Regular";
+  src: url("fonts/07a38bbad54db72a40b406bed1c72f53.eot");
+  src: url("fonts/07a38bbad54db72a40b406bed1c72f53.eot?#iefix")format("embedded-opentype"),
+  url("fonts/07a38bbad54db72a40b406bed1c72f53.woff2")format("woff2"),
+  url("fonts/07a38bbad54db72a40b406bed1c72f53.woff")format("woff"),
+  url("fonts/07a38bbad54db72a40b406bed1c72f53.ttf")format("truetype"),
+  url("fonts/07a38bbad54db72a40b406bed1c72f53.svg#Gotham Pro Regular")format("svg");
+}
+@font-face {
+  font-family: "Gotham Pro Bold";
+  src: url("fonts/013bc3f20021c3221eeb427f1f3929f4.eot");
+  src: url("fonts/013bc3f20021c3221eeb427f1f3929f4.eot?#iefix")format("embedded-opentype"),
+  url("fonts/013bc3f20021c3221eeb427f1f3929f4.woff2")format("woff2"),
+  url("fonts/013bc3f20021c3221eeb427f1f3929f4.woff")format("woff"),
+  url("fonts/013bc3f20021c3221eeb427f1f3929f4.ttf")format("truetype"),
+  url("fonts/013bc3f20021c3221eeb427f1f3929f4.svg#GothamPro-Bold")format("svg");
+}
 
 @tailwind base;
 @tailwind components;
@@ -10,8 +29,14 @@ html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-  font-family: "Gotham Pro", sans-serif;
+  font-family: "Gotham Pro Regular", sans-serif;
   font-feature-settings: normal;
+}
+.font-semibold{
+  font-family: "Gotham Pro Bold", sans-serif;
+}
+.full-width{
+  width:100%;
 }
 
 .input-base {

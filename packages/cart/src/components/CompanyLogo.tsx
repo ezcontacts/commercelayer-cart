@@ -15,13 +15,13 @@ export const CompanyLogo: FC = () => {
   return (
     <>
       {isLoading ? (
-        <SkeletonItem className="w-2/12 h-[40px]" />
+        <SkeletonItem className="w-12/12 h-[40px]" />
       ) : settings.logoUrl ? (
         <ReturnLink url={returnUrl}>
           <img
             src={settings.logoUrl}
             alt={settings.companyName}
-            className="h-[40px] cursor-pointer"
+            className="h-[47px] cursor-pointer"
             onClick={goContinueShopping}
 
           />

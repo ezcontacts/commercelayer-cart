@@ -134,5 +134,6 @@ export const getSettings = async ({
     returnUrl: order.return_url,
     cartUrl: order.cart_url,
     isValid: true,
+    shopUrl: "https://preprod.ezcontacts.com",
   }
 }

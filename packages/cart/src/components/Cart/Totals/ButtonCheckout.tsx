@@ -79,6 +79,7 @@ export const ButtonCheckout: FC = () => {
           order: {
             id: orderId,
           },
+          visitor_id: visitoId || "",
         },
       }
       return fetch(

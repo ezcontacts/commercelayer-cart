@@ -107,6 +107,7 @@ export const ButtonCheckout: FC = () => {
     if (orderId) {
       const requestBody = {
         cl_order_id: orderId,
+        visitor_id: visitoId || "",
       }
       return fetch(
         `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/reserve`,

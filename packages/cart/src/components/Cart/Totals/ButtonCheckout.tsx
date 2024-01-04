@@ -7,14 +7,12 @@ import { getLogedinStatus, getVisitorId } from "#utils/getLogedinStatus"
 import { saveUserActivitylogData } from "#utils/cllogs"
 import useLogMetricsData from "#utils/logClMetrics"
 
-
 export const ButtonCheckout: FC = () => {
   const { logMetrics } = useLogMetricsData()
   const islogged = getLogedinStatus()
   const visitoId = getVisitorId()
   const { settings } = useSettings()
   const { t } = useTranslation()
-
 
   if (!settings || !settings.isValid) {
     return null
@@ -35,13 +33,14 @@ export const ButtonCheckout: FC = () => {
     if (Number(islogged) === 1) {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)
+        let itemOrderNumber = await getEzOrderNumber(settings.orderId)
         logData({
           requested_method: "onProceedCheckout",
           requested_data: { "orderId-": settings.orderId },
-          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}`,
+          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}&itemOrderNumber=${visitoId}`,
         })
         window.open(
-          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}`,
+          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}&itemOrderNumber=${itemOrderNumber}`,
           "_self"
         )
       }
@@ -60,13 +59,14 @@ export const ButtonCheckout: FC = () => {
     if (settings.orderId) {
       localStorage.setItem("checkoutUserEmail", "")
       let paymentToken = await getPaymentToken(settings.orderId)
+      let itemOrderNumber = await getEzOrderNumber(settings.orderId)
       logData({
         requested_method: "onProceedCheckoutAsGuest",
         requested_data: { "orderId-": settings.orderId },
-        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}`,
+        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}&itemOrderNumber=${itemOrderNumber}`,
       })
       window.open(
-        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}`,
+        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}&itemOrderNumber=${itemOrderNumber}`,
         "_self"
       )
     }
@@ -95,6 +95,32 @@ export const ButtonCheckout: FC = () => {
         .then((response) => response.json())
         .then((result) => {
           const res = result?.data?.payment_source_token
+          return res
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
+    }
+  }
+
+  const getEzOrderNumber = (orderId: any) => {
+    if (orderId) {
+      const requestBody = {
+        cl_order_id: orderId,
+      }
+      return fetch(
+        `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/reserve`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          const res = result?.data?.order_id
           return res
         })
         .catch((error) => {

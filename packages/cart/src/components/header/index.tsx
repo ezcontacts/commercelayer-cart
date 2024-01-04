@@ -60,9 +60,11 @@ const Header: FC<HeaderProps> = () => {
             </a>
             <a href="#">
               <LineItemsCount>
-                {({ quantity }: { quantity: number }) =>
-                  quantity && (
+                {({ quantity }) =>
+                  quantity ? (
                     <span className={styles.item_count}>{quantity}</span>
+                  ) : (
+                    <span></span>
                   )
                 }
               </LineItemsCount>

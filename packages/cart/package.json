@@ -40,6 +40,7 @@
     "@commercelayer/react-utils": "1.0.0-beta.3",
     "@commercelayer/sdk": "^4.15.0",
     "@ezcontacts/react-components": "1.0.6",
+    "@optimizely/react-sdk": "^2.9.2",
     "@playwright/test": "^1.22.2",
     "@types/async-retry": "1.4.4",
     "@types/iframe-resizer": "^3.5.9",

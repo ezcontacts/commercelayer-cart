@@ -5,11 +5,11 @@ const Invalid = () => {
   }
 
   const handleClickContacts = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/contact-lenses`
+    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/contact-lenses`
   }
 
   const handleClickSunglasses = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/sunglasses`
+    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/sunglasses`
   }
 
   const goContinueShopping = () => {

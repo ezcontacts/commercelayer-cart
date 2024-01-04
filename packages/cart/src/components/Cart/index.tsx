@@ -12,6 +12,7 @@ import { PageHeader } from "#components/PageHeader"
 import { PageLayout } from "#components/PageLayout"
 import { useSettings } from "#components/SettingsProvider"
 import PageFooter from "#components/PageFooter"
+import { s } from "vitest/dist/index-5aad25c1"
 
 const Cart: FC = () => {
   const [userEmail, setuserEmail] = useState("")
@@ -43,6 +44,7 @@ const Cart: FC = () => {
           cart_url: settings.cartUrl || window.location.href,
         }}
         fetchOrder={(res) => {
+          console.log("order-status", res.status)
           if (res.customer_email) {
             setuserEmail(res.customer_email)
           }

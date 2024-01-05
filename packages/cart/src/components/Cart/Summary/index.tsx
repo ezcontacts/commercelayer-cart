@@ -54,14 +54,18 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }, [])
 
   let productNames = [] as any
-  const goContinueShopping = () => {
+
+  const goContinueShopping = (product_url: string) => {
+    if (product_url) {
+      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}${product_url}}`
+    }
     window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
   }
 
-  const ContinueShopping = () => {
+  const ContinueShoppingToHome = () => {
     return (
       <div
-        onClick={goContinueShopping}
+        onClick={() => goContinueShopping("")}
         className="flex items-center space-x-1 cursor-pointer"
       >
         <div>
@@ -231,6 +235,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                               tagElement="div"
                             >
                               {({ attributeValue }: any) => {
+                                debugger
                                 return (
                                   <div className="flex flex-col">
                                     <div>
@@ -242,7 +247,11 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                         )}
 
                                         <div
-                                          onClick={goContinueShopping}
+                                          onClick={() =>
+                                            goContinueShopping(
+                                              attributeValue?.product_url
+                                            )
+                                          }
                                           className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80"
                                         >
                                           {attributeValue?.skuDisplayName}
@@ -376,7 +385,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
       </LineItemsEmpty>
 
       <div className="w-40">
-        <ContinueShopping />
+        <ContinueShoppingToHome />
       </div>
 
       {/* Return Url */}

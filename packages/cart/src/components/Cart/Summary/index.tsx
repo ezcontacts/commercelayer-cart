@@ -235,7 +235,6 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                               tagElement="div"
                             >
                               {({ attributeValue }: any) => {
-                                debugger
                                 return (
                                   <div className="flex flex-col">
                                     <div>

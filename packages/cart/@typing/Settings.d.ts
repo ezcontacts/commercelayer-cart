@@ -63,11 +63,15 @@ declare module "HostedApp" {
      * Total items found in current order.
      */
     itemsCount: number
+    /**
+     * Shop url for Header Menu Link
+     */
+    shopUrl: string
   }
 
   export type InvalidSettings = Pick<
     Settings,
-    "primaryColor" | "language" | "faviconUrl" | "companyName" | "logoUrl"
+    "primaryColor" | "language" | "faviconUrl" | "companyName" | "logoUrl" | "shopUrl"
   > & {
     /**
      * This flag allows TypeScript to discriminate between `Settings` and `InvalidSettings` union type.
@@ -77,6 +81,6 @@ declare module "HostedApp" {
      * When `true`, it indicates the encountered error might be temporary (eg. connectivity error)
      * and the user can manually retry by refreshing browser tab.
      */
-    retryable: boolean
+    retryable: boolean,
   }
 }

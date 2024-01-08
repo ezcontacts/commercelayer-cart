@@ -53,14 +53,21 @@ export const Summary: FC<Props> = ({ listTypes }) => {
     saveUserActivitylogData(requestBody)
   }, [])
 
-  let productNames = [] as any
-
   const goContinueShopping = (product_url: string) => {
     if (product_url) {
       window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}${product_url}}`
     }
     window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
   }
+
+  const messages: Parameters<typeof Errors>[0]["messages"] = [
+    {
+      code: "VALIDATION_ERROR",
+      resource: "line_items",
+      field: "quantity",
+      message: `Out of stock`,
+    },
+  ]
 
   const ContinueShoppingToHome = () => {
     return (
@@ -309,7 +316,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                           </div>
                         </div>
                       </div>
-                      <div className="w-1/5">
+                      <div className="w-1/3">
                         <div className="flex flex-col space-y-6">
                           <div className="flex justify-end">
                             <ButtonRemoveItem />
@@ -350,12 +357,24 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex p-1">
-                          <Errors
-                            className="text-xs text-red-400"
-                            resource="line_items"
-                            field="quantity"
-                          />
+                        <div className="flex pt-1 pb-1">
+                          <LineItemQuantity>
+                            {({ quantity }) => (
+                              <Errors
+                                className="text-xs text-red-400"
+                                resource="line_items"
+                                field="quantity"
+                                messages={[
+                                  {
+                                    code: "VALIDATION_ERROR",
+                                    resource: "line_items",
+                                    field: "quantity",
+                                    message: `Only ${quantity} ${attributeValue?.skuDisplayName} ${attributeValue?.color} ${attributeValue?.frame_size} is avilable to order`,
+                                  },
+                                ]}
+                              />
+                            )}
+                          </LineItemQuantity>
                         </div>
                       </div>
                     </div>

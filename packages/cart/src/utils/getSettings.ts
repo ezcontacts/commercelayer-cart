@@ -20,7 +20,7 @@ export const defaultSettings: InvalidSettings = {
     "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
   companyName: "Commerce Layer",
   retryable: false,
-  shopUrl: "https://odoo.ezcontacts.com/",
+  shopUrl: "https://odoo.ezcontacts.com",
 }
 
 const makeInvalidSettings = ({

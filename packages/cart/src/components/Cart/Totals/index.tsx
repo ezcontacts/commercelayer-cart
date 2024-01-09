@@ -19,6 +19,9 @@ type Props = {
 
 export const Totals: FC<Props> = ({ orderData }: any) => {
   const formatted_discount_amount = orderData?.formatted_discount_amount
+  const discount = parseFloat(
+    formatted_discount_amount?.replace("$", "")
+  )
   const { t } = useTranslation()
   return (
     <div>
@@ -130,16 +133,14 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
                   </div>
 
                   <div className="font-normal text-sm leading-5">
-                    {formatted_discount_amount ? (
+                    {discount !==0 ? (
                       <TotalAmount>
                         {(props) => {
                           if (props.price === undefined) return <div />
                           const price = parseFloat(
                             props?.price?.replace("$", "")
                           )
-                          const discount = parseFloat(
-                            formatted_discount_amount?.replace("$", "")
-                          )
+
                           const total = price + discount
                           return (
                             <span

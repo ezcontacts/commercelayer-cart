@@ -33,10 +33,10 @@ export type LineItemType =
   | "bundles"
   | "adjustments"
 
+
 type Props = {
   listTypes: LineItemType[]
 }
-
 export const Summary: FC<Props> = ({ listTypes }) => {
   const { settings } = useSettings()
   if (!settings || !settings.isValid) {

@@ -29,6 +29,7 @@ export const ButtonCheckout: FC = () => {
   }
 
   const onProceedCheckout = async () => {
+    //&itemOrderNumber=${itemOrderNumber}
     logMetrics("proceed_to_checkout")
     if (Number(islogged) === 1) {
       if (settings.orderId) {
@@ -37,10 +38,10 @@ export const ButtonCheckout: FC = () => {
         logData({
           requested_method: "onProceedCheckout",
           requested_data: { "orderId-": settings.orderId },
-          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}&itemOrderNumber=${visitoId}`,
+          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}`,
         })
         window.open(
-          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}&itemOrderNumber=${itemOrderNumber}`,
+          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1&ezref=${visitoId}`,
           "_self"
         )
       }
@@ -63,10 +64,10 @@ export const ButtonCheckout: FC = () => {
       logData({
         requested_method: "onProceedCheckoutAsGuest",
         requested_data: { "orderId-": settings.orderId },
-        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}&itemOrderNumber=${itemOrderNumber}`,
+        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}`,
       })
       window.open(
-        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}&itemOrderNumber=${itemOrderNumber}`,
+        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0&ezref=${visitoId}`,
         "_self"
       )
     }

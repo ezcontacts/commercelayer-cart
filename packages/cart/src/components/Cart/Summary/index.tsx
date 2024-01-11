@@ -57,7 +57,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
     if (product_url) {
       window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}${product_url}}`
     }
-    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
+    else{
+      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
+    }
+
   }
 
   const messages: Parameters<typeof Errors>[0]["messages"] = [

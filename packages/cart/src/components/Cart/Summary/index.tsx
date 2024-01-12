@@ -33,7 +33,6 @@ export type LineItemType =
   | "bundles"
   | "adjustments"
 
-
 type Props = {
   listTypes: LineItemType[]
 }
@@ -54,13 +53,13 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }, [])
 
   const goContinueShopping = (product_url: string) => {
+    const baseUrl = process.env.REACT_APP_PUBLIC_ODOO_PATH
     if (product_url) {
-      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}${product_url}}`
+      const fullUrl = `${baseUrl}${product_url}`
+      window.open(fullUrl, "_blank")
+    } else {
+      window.open(baseUrl, "_blank")
     }
-    else{
-      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
-    }
-
   }
 
   const messages: Parameters<typeof Errors>[0]["messages"] = [
@@ -372,7 +371,19 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                     code: "VALIDATION_ERROR",
                                     resource: "line_items",
                                     field: "quantity",
-                                    message: `Only ${quantity} ${attributeValue?.skuDisplayName ?attributeValue?.skuDisplayName:""} ${attributeValue?.color ?attributeValue?.color:""} ${attributeValue?.frame_size? attributeValue?.frame_size:""} is avilable to order`,
+                                    message: `Only ${quantity} ${
+                                      attributeValue?.skuDisplayName
+                                        ? attributeValue?.skuDisplayName
+                                        : ""
+                                    } ${
+                                      attributeValue?.color
+                                        ? attributeValue?.color
+                                        : ""
+                                    } ${
+                                      attributeValue?.frame_size
+                                        ? attributeValue?.frame_size
+                                        : ""
+                                    } is avilable to order`,
                                   },
                                 ]}
                               />

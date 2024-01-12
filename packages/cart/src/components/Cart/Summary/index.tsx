@@ -372,7 +372,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                     code: "VALIDATION_ERROR",
                                     resource: "line_items",
                                     field: "quantity",
-                                    message: `Only ${quantity} ${attributeValue?.skuDisplayName} ${attributeValue?.color} ${attributeValue?.frame_size} is avilable to order`,
+                                    message: `Only ${quantity} ${attributeValue?.skuDisplayName ?attributeValue?.skuDisplayName:""} ${attributeValue?.color ?attributeValue?.color:""} ${attributeValue?.frame_size? attributeValue?.frame_size:""} is avilable to order`,
                                   },
                                 ]}
                               />

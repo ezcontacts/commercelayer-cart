@@ -123,7 +123,7 @@ export const Totals: FC = () => {
                 <div className="font-semibold text-sm leading-5">Subtotal</div>
 
                 <div className="font-normal text-sm leading-5">
-                  <TotalAmount>
+                  <SubTotalAmount>
                     {({ priceCents, price }) => (
                       <span
                         data-test-id="total-amount"
@@ -132,7 +132,7 @@ export const Totals: FC = () => {
                         {price}
                       </span>
                     )}
-                  </TotalAmount>
+                  </SubTotalAmount>
                 </div>
               </div>
               <ButtonCheckout />

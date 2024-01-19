@@ -165,7 +165,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                             <div className="flex flex-col space-y-16">
                               <div>
-                                <ButtonRemoveItem />
+                                <ButtonRemoveItem metadataitem={attributeValue} />
                               </div>
                             </div>
                           </div>
@@ -321,7 +321,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                       <div className="w-1/3">
                         <div className="flex flex-col space-y-6">
                           <div className="flex justify-end">
-                            <ButtonRemoveItem />
+                            <ButtonRemoveItem metadataitem={attributeValue} />
                           </div>
                           <div>
                             <div className="flex pt-2 items-center justify-end space-x-5 mt-auto">

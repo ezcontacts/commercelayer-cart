@@ -16,6 +16,7 @@ import { s } from "vitest/dist/index-5aad25c1"
 
 const Cart: FC = () => {
   const [userEmail, setuserEmail] = useState("")
+  const [orderData, setOrder] = useState({}) as any;
   const { settings } = useSettings()
   const { t } = useTranslation()
 
@@ -44,6 +45,7 @@ const Cart: FC = () => {
           cart_url: settings.cartUrl || window.location.href,
         }}
         fetchOrder={(res) => {
+          setOrder(res)
           console.log("order-status", res.status)
           if (res.customer_email) {
             setuserEmail(res.customer_email)
@@ -56,7 +58,7 @@ const Cart: FC = () => {
           <PageLayout
             top={<PageHeader userEmail={userEmail}></PageHeader>}
             main={<Summary listTypes={["bundles", "skus", "gift_cards"]} />}
-            aside={<Totals />}
+            aside={<Totals orderData={orderData} />}
             bottom={<PageFooter />}
           />
         </LineItemsContainer>

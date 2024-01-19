@@ -1,10 +1,21 @@
+import { useSettings } from "#components/SettingsProvider"
 import { LineItemRemoveLink } from "@ezcontacts/react-components"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export const ButtonRemoveItem: FC = () => {
+type Props = {
+  metadataitem: any
+}
+
+export const ButtonRemoveItem: FC<Props> = ({ metadataitem }) => {
+  console.log("metadataitem", metadataitem)
+  const { productType, related_line_item_id } = metadataitem
   const { t } = useTranslation()
   const title = t("general.remove")
+  const { settings } = useSettings()
+  if (!settings || !settings.isValid) {
+    return null
+  }
 
   return (
     <>
@@ -25,7 +36,7 @@ export const ButtonRemoveItem: FC = () => {
                           {/*header*/}
                           <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                             <h3 className="text-lg font-semibold">
-                             Shopping Cart
+                              Shopping Cart
                             </h3>
                             <button
                               className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -69,14 +80,29 @@ export const ButtonRemoveItem: FC = () => {
             )
           }
 
-          const onDelete = (event: any) => {
+          const onDelete = async (event: any) => {
             handleRemove(event)
+            if (related_line_item_id) {
+              fetch(
+                `${process.env.REACT_APP_PUBLIC_CL_URL_PATH}/api/line_items/${related_line_item_id}`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    Accept: "application/vnd.api+json",
+                    Authorization: `Bearer ${settings?.accessToken}`,
+                    "Content-Type": "application/vnd.api+json",
+                  },
+                }
+              ).then(() => {
+                return true
+              })
+            }
           }
 
           return (
             <>
               <a
-                 onClick={() => setShowModal(true)}
+                onClick={() => setShowModal(true)}
                 className="cursor-pointer hover:text-red-500"
                 title={title}
                 data-test-id="button-remove-item"

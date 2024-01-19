@@ -34,7 +34,7 @@ export const ButtonCheckout: FC = () => {
     if (Number(islogged) === 1) {
       if (settings.orderId) {
         let paymentToken = await getPaymentToken(settings.orderId)
-        let itemOrderNumber = await getEzOrderNumber(settings.orderId)
+
         logData({
           requested_method: "onProceedCheckout",
           requested_data: { "orderId-": settings.orderId },
@@ -60,7 +60,7 @@ export const ButtonCheckout: FC = () => {
     if (settings.orderId) {
       localStorage.setItem("checkoutUserEmail", "")
       let paymentToken = await getPaymentToken(settings.orderId)
-      let itemOrderNumber = await getEzOrderNumber(settings.orderId)
+
       logData({
         requested_method: "onProceedCheckoutAsGuest",
         requested_data: { "orderId-": settings.orderId },
@@ -104,32 +104,6 @@ export const ButtonCheckout: FC = () => {
     }
   }
 
-  const getEzOrderNumber = (orderId: any) => {
-    if (orderId) {
-      const requestBody = {
-        cl_order_id: orderId,
-        visitor_id: visitoId || "",
-      }
-      return fetch(
-        `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/cl/order/reserve`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(requestBody),
-        }
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          const res = result?.data?.order_id
-          return res
-        })
-        .catch((error) => {
-          console.error("Error:", error)
-        })
-    }
-  }
 
   return (
     <>

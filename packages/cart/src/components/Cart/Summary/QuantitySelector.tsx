@@ -14,14 +14,17 @@ export const QuantitySelector: FC<Props> = () => {
   return (
     <div className="relative w-full">
       <LineItemQuantity>
-        {({ quantity, handleChange }) => (
-          <InputSpinner
-            data-test-id="quantity-selector"
-            quantity={quantity}
-            handleChange={handleChange}
-            debounceMs={600}
-          />
-        )}
+        {({ quantity, handleChange, max }) => {
+          console.log("maxquantity", max)
+          return (
+            <InputSpinner
+              data-test-id="quantity-selector"
+              quantity={quantity}
+              handleChange={handleChange}
+              debounceMs={600}
+            ></InputSpinner>
+          )
+        }}
       </LineItemQuantity>
     </div>
   )

@@ -1,8 +1,9 @@
 import cn from "classnames"
 import { FC, ReactNode } from "react"
 
-import { CompanyLogo } from "#components/CompanyLogo"
+// import { CompanyLogo } from "#components/CompanyLogo"
 import { SkeletonItem } from "#components/Skeleton/Item"
+import Header from "#components/header"
 import { isEmbedded } from "#utils/isEmbedded"
 import { Ezbanner } from "./common/ezbanner"
 
@@ -33,14 +34,16 @@ export const PageHeader: FC<Props> = ({ isLoading, children , userEmail}) => {
       })}
       data-test-id="cart-header"
     >
-      <div className="py-8 border-b border-b-gray-200">
+      <Header />
+      {/* <div className="py-8 border-b border-b-gray-200">
         <CompanyLogo />
-      </div>
+      </div> */}
       <div className="flex justify-between items-center pb-6">
         {isLoading ? (
           <>
-            <SkeletonItem className="w-1/12 h-[36px]" />
-            <SkeletonItem className="w-1/12 h-[20px]" />
+            <SkeletonItem className="h-[54px] mt-6 full-width" />
+            {/* <SkeletonItem className="w-1/12 h-[36px]" />
+            <SkeletonItem className="w-1/12 h-[20px]" /> */}
           </>
         ) : (
           children

@@ -146,7 +146,7 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
                               data-test-id="total-amount"
                               data-amount={props.priceCents}
                             >
-                              {totalPrice}
+                              {'$'}{totalPrice}
                             </span>
                           )
                         }}

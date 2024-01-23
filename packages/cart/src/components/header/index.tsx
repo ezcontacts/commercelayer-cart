@@ -54,7 +54,7 @@ const Header: FC<HeaderProps> = () => {
               <img src={orderIcon} alt="Reorder Icon" />
               Reorder
             </a>
-            <a href={`${settings.shopUrl}/account/account/sign-in`}>
+            <a href={`${settings.shopUrl}/account/main`}>
               <img src={accountIcon} alt="Account Icon" />
               Account
             </a>

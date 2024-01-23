@@ -2,10 +2,10 @@ import cn from "classnames"
 import { FC, ReactNode } from "react"
 
 // import { CompanyLogo } from "#components/CompanyLogo"
-import { SkeletonItem } from "#components/Skeleton/Item"
-import Header from "#components/header"
-import { isEmbedded } from "#utils/isEmbedded"
 import { Ezbanner } from "./common/ezbanner"
+
+import { SkeletonItem } from "#components/Skeleton/Item"
+import { isEmbedded } from "#utils/isEmbedded"
 
 type Props = {
   /**
@@ -19,9 +19,7 @@ type Props = {
   userEmail?: string
 }
 
-export const PageHeader: FC<Props> = ({ isLoading, children , userEmail}) => {
-
-
+export const PageHeader: FC<Props> = ({ isLoading, children, userEmail }) => {
   if (isEmbedded()) {
     // we don't need page header when app is working in embedded mode
     return null
@@ -34,7 +32,6 @@ export const PageHeader: FC<Props> = ({ isLoading, children , userEmail}) => {
       })}
       data-test-id="cart-header"
     >
-      <Header />
       {/* <div className="py-8 border-b border-b-gray-200">
         <CompanyLogo />
       </div> */}

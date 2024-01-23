@@ -1,12 +1,10 @@
 .main_header{
-    margin-left:-12rem;
-    margin-right:-12rem;
     border-bottom: 1px solid #EEE;
     padding:25px 0 0;
     position: relative;
 }
 .main_header .container{
-    max-width:1402px;
+    max-width:1210px;
     margin:0 auto;
     padding:0 15px;
 }
@@ -20,7 +18,7 @@
 }
 .main_header .search_form{
     flex:1;
-    padding-left:53px;
+    padding-left:40px;
 }
 .main_header .search_form .form{
     position:relative;
@@ -106,7 +104,7 @@
     justify-content:center;
 }
 .main_header .primary_navigation>ul>li{
-    padding:0 25px;
+    padding:0 22px;
     line-height:85px;
     position:relative;
 }

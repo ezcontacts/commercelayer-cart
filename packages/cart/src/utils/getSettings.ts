@@ -20,6 +20,7 @@ export const defaultSettings: InvalidSettings = {
     "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
   companyName: "Commerce Layer",
   retryable: false,
+  shopUrl: "https://odoo.ezcontacts.com",
 }
 
 const makeInvalidSettings = ({
@@ -31,10 +32,11 @@ const makeInvalidSettings = ({
 }): InvalidSettings => ({
   ...defaultSettings,
   retryable: !!retryable,
-  logoUrl: organization?.logo_url,
+  logoUrl: organization?.logo_url || "",
   companyName: organization?.name || defaultSettings.companyName,
   primaryColor: organization?.primary_color || defaultSettings.primaryColor,
   faviconUrl: organization?.favicon_url || defaultSettings.faviconUrl,
+  shopUrl: defaultSettings.shopUrl,
 })
 
 /**
@@ -125,14 +127,15 @@ export const getSettings = async ({
     endpoint: `https://${slug}.${domain}`,
     orderId: order.id,
     itemsCount: (order.line_items || []).length,
-    logoUrl: organization.logo_url,
+    logoUrl: organization.logo_url || "",
     companyName: organization.name || defaultSettings.companyName,
     language: order.language_code || defaultSettings.language,
     primaryColor: organization.primary_color || defaultSettings.primaryColor,
     faviconUrl: organization.favicon_url || defaultSettings.faviconUrl,
-    gtmId: isTest ? organization.gtm_id_test : organization.gtm_id,
-    returnUrl: order.return_url,
-    cartUrl: order.cart_url,
+    gtmId: isTest ? organization.gtm_id_test || "" : organization.gtm_id || "",
+    returnUrl: order.return_url || "",
+    cartUrl: order.cart_url || "",
     isValid: true,
+    shopUrl: defaultSettings.shopUrl,
   }
 }

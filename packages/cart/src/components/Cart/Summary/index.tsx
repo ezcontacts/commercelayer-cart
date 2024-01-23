@@ -36,7 +36,6 @@ export type LineItemType =
 type Props = {
   listTypes: LineItemType[]
 }
-
 export const Summary: FC<Props> = ({ listTypes }) => {
   const { settings } = useSettings()
   if (!settings || !settings.isValid) {
@@ -53,15 +52,29 @@ export const Summary: FC<Props> = ({ listTypes }) => {
     saveUserActivitylogData(requestBody)
   }, [])
 
-  let productNames = [] as any
-  const goContinueShopping = () => {
-    window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}`
+  const goContinueShopping = (product_url: string) => {
+    const baseUrl = process.env.REACT_APP_PUBLIC_ODOO_PATH
+    if (product_url) {
+      const fullUrl = `${baseUrl}${product_url}`
+      window.open(fullUrl, "_blank")
+    } else {
+      window.open(baseUrl, "_blank")
+    }
   }
 
-  const ContinueShopping = () => {
+  const messages: Parameters<typeof Errors>[0]["messages"] = [
+    {
+      code: "VALIDATION_ERROR",
+      resource: "line_items",
+      field: "quantity",
+      message: `Out of stock`,
+    },
+  ]
+
+  const ContinueShoppingToHome = () => {
     return (
       <div
-        onClick={goContinueShopping}
+        onClick={() => goContinueShopping("")}
         className="flex items-center space-x-1 cursor-pointer"
       >
         <div>
@@ -152,7 +165,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                             <div className="flex flex-col space-y-16">
                               <div>
-                                <ButtonRemoveItem />
+                                <ButtonRemoveItem metadataitem={attributeValue} />
                               </div>
                             </div>
                           </div>
@@ -242,7 +255,11 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                         )}
 
                                         <div
-                                          onClick={goContinueShopping}
+                                          onClick={() =>
+                                            goContinueShopping(
+                                              attributeValue?.product_url
+                                            )
+                                          }
                                           className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80"
                                         >
                                           {attributeValue?.skuDisplayName}
@@ -301,10 +318,10 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                           </div>
                         </div>
                       </div>
-                      <div className="w-1/5">
+                      <div className="w-1/3">
                         <div className="flex flex-col space-y-6">
                           <div className="flex justify-end">
-                            <ButtonRemoveItem />
+                            <ButtonRemoveItem metadataitem={attributeValue} />
                           </div>
                           <div>
                             <div className="flex pt-2 items-center justify-end space-x-5 mt-auto">
@@ -342,12 +359,36 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex p-1">
-                          <Errors
-                            className="text-xs text-red-400"
-                            resource="line_items"
-                            field="quantity"
-                          />
+                        <div className="flex pt-1 pb-1">
+                          <LineItemQuantity>
+                            {({ quantity }) => (
+                              <Errors
+                                className="text-xs text-red-400"
+                                resource="line_items"
+                                field="quantity"
+                                messages={[
+                                  {
+                                    code: "VALIDATION_ERROR",
+                                    resource: "line_items",
+                                    field: "quantity",
+                                    message: `Only ${quantity} ${
+                                      attributeValue?.skuDisplayName
+                                        ? attributeValue?.skuDisplayName
+                                        : ""
+                                    } ${
+                                      attributeValue?.color
+                                        ? attributeValue?.color
+                                        : ""
+                                    } ${
+                                      attributeValue?.frame_size
+                                        ? attributeValue?.frame_size
+                                        : ""
+                                    } is avilable to order`,
+                                  },
+                                ]}
+                              />
+                            )}
+                          </LineItemQuantity>
                         </div>
                       </div>
                     </div>
@@ -376,7 +417,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
       </LineItemsEmpty>
 
       <div className="w-40">
-        <ContinueShopping />
+        <ContinueShoppingToHome />
       </div>
 
       {/* Return Url */}

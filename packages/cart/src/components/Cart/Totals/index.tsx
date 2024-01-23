@@ -9,7 +9,9 @@ import {
 } from "@ezcontacts/react-components"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
+
 import { ButtonCheckout } from "./ButtonCheckout"
+
 import { CouponOrGiftCard } from "#components/Cart/CouponOrGiftCard"
 import { SideSkeleton } from "#components/Skeleton"
 
@@ -28,7 +30,7 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
           if (props.quantity > 0) {
             return (
               <>
-                <div className="pb-4">
+                <div className="pb-2">
                   <span className="text-xs font-semibold leading-5 text-gray-700`">
                     {"Coupons"}
                   </span>
@@ -124,7 +126,7 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
                     }
                   </DiscountAmount>
                 </div>
-                <div className="mt-2 mb-4 divider-line-cart"></div>
+                <div className="mt-2 mb-2 divider-line-cart"></div>
                 <div className="pb-4 pt-4 flex items-center justify-between">
                   <div className="font-semibold text-sm leading-5">
                     Subtotal
@@ -146,7 +148,8 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
                               data-test-id="total-amount"
                               data-amount={props.priceCents}
                             >
-                              {'$'}{totalPrice}
+                              {"$"}
+                              {totalPrice}
                             </span>
                           )
                         }}
@@ -168,7 +171,7 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
                   </div>
                 </div>
                 <ButtonCheckout />
-                <div className="text-center pt-2 pb-5">
+                <div className="text-center pt-2 adjust-l-r">
                   <span className="font-normal text-xs leading-5 text-center text-gray-600">
                     {
                       "if applicable, shipping costs will be calculated at checkout"

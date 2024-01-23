@@ -65,7 +65,7 @@ export const LineItemOptions = ({ LineItem }: any) => {
     return (
       <div className="pt-2 space-y-2">
         {Right && (
-          <div className="flex items-end md:items-start">
+          <div className="flex items-end md:items-center">
             <div className="w-28">
               <span className="font-normal text-xxs leading-5 text-gray-400">
                 {"Right Eye (OD)"}
@@ -92,7 +92,7 @@ export const LineItemOptions = ({ LineItem }: any) => {
           </div>
         )}
         {Left && (
-          <div className="flex items-end  md:items-start">
+          <div className="flex items-end  md:items-center">
             <div className="w-28">
               <span className="font-normal text-xxs leading-5 text-gray-400">
                 {"Left Eye (OS)"}

@@ -367,7 +367,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                           <LineItemQuantity>
                             {({ quantity }) => (
                               <Errors
-                                className="text-xs text-red-400"
+                                className="text-xs text-red-400 error-message-text"
                                 resource="line_items"
                                 field="quantity"
                                 messages={[

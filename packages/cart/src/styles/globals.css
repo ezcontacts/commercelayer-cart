@@ -3,20 +3,24 @@
 @font-face {
   font-family: "Gotham Pro Regular";
   src: url("fonts/07a38bbad54db72a40b406bed1c72f53.eot");
-  src: url("fonts/07a38bbad54db72a40b406bed1c72f53.eot?#iefix")format("embedded-opentype"),
-  url("fonts/07a38bbad54db72a40b406bed1c72f53.woff2")format("woff2"),
-  url("fonts/07a38bbad54db72a40b406bed1c72f53.woff")format("woff"),
-  url("fonts/07a38bbad54db72a40b406bed1c72f53.ttf")format("truetype"),
-  url("fonts/07a38bbad54db72a40b406bed1c72f53.svg#Gotham Pro Regular")format("svg");
+  src: url("fonts/07a38bbad54db72a40b406bed1c72f53.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/07a38bbad54db72a40b406bed1c72f53.woff2") format("woff2"),
+    url("fonts/07a38bbad54db72a40b406bed1c72f53.woff") format("woff"),
+    url("fonts/07a38bbad54db72a40b406bed1c72f53.ttf") format("truetype"),
+    url("fonts/07a38bbad54db72a40b406bed1c72f53.svg#Gotham Pro Regular")
+      format("svg");
 }
 @font-face {
   font-family: "Gotham Pro Bold";
   src: url("fonts/013bc3f20021c3221eeb427f1f3929f4.eot");
-  src: url("fonts/013bc3f20021c3221eeb427f1f3929f4.eot?#iefix")format("embedded-opentype"),
-  url("fonts/013bc3f20021c3221eeb427f1f3929f4.woff2")format("woff2"),
-  url("fonts/013bc3f20021c3221eeb427f1f3929f4.woff")format("woff"),
-  url("fonts/013bc3f20021c3221eeb427f1f3929f4.ttf")format("truetype"),
-  url("fonts/013bc3f20021c3221eeb427f1f3929f4.svg#GothamPro-Bold")format("svg");
+  src: url("fonts/013bc3f20021c3221eeb427f1f3929f4.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/013bc3f20021c3221eeb427f1f3929f4.woff2") format("woff2"),
+    url("fonts/013bc3f20021c3221eeb427f1f3929f4.woff") format("woff"),
+    url("fonts/013bc3f20021c3221eeb427f1f3929f4.ttf") format("truetype"),
+    url("fonts/013bc3f20021c3221eeb427f1f3929f4.svg#GothamPro-Bold")
+      format("svg");
 }
 
 @tailwind base;
@@ -32,11 +36,11 @@ html {
   font-family: "Gotham Pro Regular", sans-serif;
   font-feature-settings: normal;
 }
-.font-semibold{
+.font-semibold {
   font-family: "Gotham Pro Bold", sans-serif;
 }
-.full-width{
-  width:100%;
+.full-width {
+  width: 100%;
 }
 .input-base {
   @apply text-black text-sm
@@ -144,64 +148,71 @@ html {
   background-color: #d9edf7;
   border-color: #308a9d;
 }
-.container .inner-container{
-  max-width:1210px;
-  padding:0 15px;
-  margin:0 auto;
+.container .inner-container {
+  max-width: 1210px;
+  padding: 0 15px;
+  margin: 0 auto;
 }
-.cart-page-section .left-part{
-  flex:1;
-  width:100%;
+.cart-page-section .left-part {
+  flex: 1;
+  width: 100%;
 }
-.cart-page-section .right-sidebar{
+.cart-page-section .right-sidebar {
   max-width: 381px;
   position: sticky;
   top: 15px;
 }
-.cart-page-section .right-sidebar .totalcard{
-  padding:21px 28px 23px;
+.cart-page-section .right-sidebar .totalcard {
+  padding: 21px 28px 23px;
 }
-.cart-page-section .right-sidebar .adjust-l-r{
-  margin:0 -25px;
+.cart-page-section .right-sidebar .adjust-l-r {
+  margin: 0 -25px;
 }
 .text-gray-400,
 .text-gray-500,
 .text-gray-600,
-.text-gray-700{
-  color:#4D4D4D;
+.text-gray-700 {
+  color: #4d4d4d;
 }
 
-.coupon-card-input-background::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #4D4D4D;
+.coupon-card-input-background::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #4d4d4d;
 }
-.coupon-card-input-background::-moz-placeholder { /* Firefox 19+ */
-  color: #4D4D4D;
+.coupon-card-input-background::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #4d4d4d;
 }
-.coupon-card-input-background:-ms-input-placeholder { /* IE 10+ */
-  color: #4D4D4D;
+.coupon-card-input-background:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #4d4d4d;
 }
-.coupon-card-input-background:-moz-placeholder { /* Firefox 18- */
-  color: #4D4D4D;
+.coupon-card-input-background:-moz-placeholder {
+  /* Firefox 18- */
+  color: #4d4d4d;
 }
-.cart-page-section .right-sidebar .button-checkout{
+.cart-page-section .right-sidebar .button-checkout {
   line-height: 28px;
 }
-.cart-page-section .right-sidebar .checkout-as-guest{
+.cart-page-section .right-sidebar .checkout-as-guest {
   line-height: 27px;
 }
 .divider-line-cart {
   border: 0;
-  border-top:1px solid #E0E0E0;
-  height:auto;
+  border-top: 1px solid #e0e0e0;
+  height: auto;
 }
-.border-t-gray-100{
-  border-color:#E0E0E0;
+.border-t-gray-100 {
+  border-color: #e0e0e0;
 }
 .card-image-container {
-  border-color: #E0E0E0;
+  border-color: #e0e0e0;
   height: 110px;
-  width:90px;
+  width: 90px;
 }
-.pl-3:empty{
-  display:none;
+.pl-3:empty {
+  display: none;
+}
+.error-message-text {
+  width: 180px;
 }

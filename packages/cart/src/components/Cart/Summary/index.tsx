@@ -387,7 +387,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                       attributeValue?.frame_size
                                         ? attributeValue?.frame_size
                                         : ""
-                                    } is avilable to order`,
+                                    } is available to order`,
                                   },
                                 ]}
                               />

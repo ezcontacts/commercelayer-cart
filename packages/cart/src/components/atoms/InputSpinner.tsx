@@ -116,7 +116,7 @@ export function InputSpinner({
             setInternalValue(value)
           }
         }}
-        disabled={isDisabled}
+        disabled={true}
       />
       <button
         data-test-id="input-spinner-btn-increment"

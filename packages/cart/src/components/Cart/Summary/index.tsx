@@ -10,6 +10,8 @@ import {
 } from "@ezcontacts/react-components"
 import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { LiaTimesSolid } from "react-icons/lia"
+
 import { ButtonRemoveItem } from "./ButtonRemoveItem"
 import {
   LineItemOptions,
@@ -18,12 +20,12 @@ import {
   GetLineOptionPowerAttribute,
 } from "./LineItemOptions"
 import { QuantitySelector } from "./QuantitySelector"
+
 import { EmptyCartMessage } from "#components/atoms/EmptyCartMessage"
 import { useSettings } from "#components/SettingsProvider"
 import { LineItemsSkeleton } from "#components/Skeleton/LineItems"
-import { isEmbedded } from "#utils/isEmbedded"
-import { LiaTimesSolid } from "react-icons/lia"
 import { saveUserActivitylogData } from "#utils/cllogs"
+import { isEmbedded } from "#utils/isEmbedded"
 export type LineItemType =
   | "gift_cards"
   | "payment_methods"
@@ -43,7 +45,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
   }
   const { t } = useTranslation()
   useEffect(() => {
-    let requestBody = {
+    const requestBody = {
       requested_method: "View Cart",
       cl_token: settings.accessToken,
       requested_data: { "orderId-": settings.orderId },
@@ -165,7 +167,9 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                             </div>
                             <div className="flex flex-col space-y-16">
                               <div>
-                                <ButtonRemoveItem metadataitem={attributeValue} />
+                                <ButtonRemoveItem
+                                  metadataitem={attributeValue}
+                                />
                               </div>
                             </div>
                           </div>
@@ -230,13 +234,13 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                 return (
                   <div className="gap-5 pb-8 mb-8 border-b border-b-gray-100 space-y-5">
                     <div
-                      className="flex space-x-8 w-full"
+                      className="flex space-x-5 w-full"
                       data-test-id={`line-item-${type}`}
                     >
                       <div className="w-3/6 card-image-container">
                         <LineItemImage className="w-3/4 self-start md:self-center object-contain" />
                       </div>
-                      <div className="w-4/5">
+                      <div className="w-5/5 flex-1">
                         <div className="flex-1 flex flex-col">
                           <div className="flex justify-between items-start gap-1">
                             <LineItemField
@@ -260,7 +264,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                               attributeValue?.product_url
                                             )
                                           }
-                                          className="font-semibold cursor-pointer text-sm leading-5 text-gray-700 opacity-80"
+                                          className="font-semibold cursor-pointer text-sm leading-5 text-gray-700"
                                         >
                                           {attributeValue?.skuDisplayName}
                                         </div>
@@ -318,7 +322,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                           </div>
                         </div>
                       </div>
-                      <div className="w-1/3">
+                      <div className="w-3/3">
                         <div className="flex flex-col space-y-6">
                           <div className="flex justify-end">
                             <ButtonRemoveItem metadataitem={attributeValue} />
@@ -363,7 +367,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                           <LineItemQuantity>
                             {({ quantity }) => (
                               <Errors
-                                className="text-xs text-red-400"
+                                className="text-xs text-red-400 error-message-text"
                                 resource="line_items"
                                 field="quantity"
                                 messages={[
@@ -383,7 +387,7 @@ export const Summary: FC<Props> = ({ listTypes }) => {
                                       attributeValue?.frame_size
                                         ? attributeValue?.frame_size
                                         : ""
-                                    } is avilable to order`,
+                                    } is available to order`,
                                   },
                                 ]}
                               />

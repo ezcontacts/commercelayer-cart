@@ -168,7 +168,7 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
                   </div>
                 </div>
                 <ButtonCheckout />
-                <div className="text-center pt-2 pb-5">
+                <div className="text-center pt-2 adjust-l-r">
                   <span className="font-normal text-xs leading-5 text-center text-gray-600">
                     {
                       "if applicable, shipping costs will be calculated at checkout"

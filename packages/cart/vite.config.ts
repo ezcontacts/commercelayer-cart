@@ -6,22 +6,21 @@ import { defineConfig } from "vitest/config"
 import { resolve } from "path"
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): any => {
   const env = loadEnv(mode, process.cwd(), "")
   const analyzeBundle = env.ANALYZE_BUNDLE === "true"
   const basePath =
     env.PUBLIC_PROJECT_PATH != null ? `/${env.PUBLIC_PROJECT_PATH}` : ""
 
-
-    const processEnvValues = {
-      "process.env": Object.entries(env).reduce((prev, [key, val]) => {
-        console.log(key, val);
-        return {
-          ...prev,
-          [key]: val,
-        };
-      }, {}),
-    };
+  const processEnvValues = {
+    "process.env": Object.entries(env).reduce((prev, [key, val]) => {
+      console.log(key, val)
+      return {
+        ...prev,
+        [key]: val,
+      }
+    }, {}),
+  }
 
   return {
     plugins: preparePlugins({ analyzeBundle }),

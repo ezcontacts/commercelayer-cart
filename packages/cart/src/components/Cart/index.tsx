@@ -16,7 +16,7 @@ import { s } from "vitest/dist/index-5aad25c1"
 
 const Cart: FC = () => {
   const [userEmail, setuserEmail] = useState("")
-  const [orderData, setOrder] = useState({}) as any;
+  const [orderData, setOrder] = useState({}) as any
   const { settings } = useSettings()
   const { t } = useTranslation()
 
@@ -36,7 +36,7 @@ const Cart: FC = () => {
 
   return (
     <CommerceLayer
-    accessToken={settings.accessToken}
+      accessToken={settings.accessToken}
       endpoint={settings.endpoint}
     >
       <OrderContainer
@@ -46,7 +46,6 @@ const Cart: FC = () => {
         }}
         fetchOrder={(res) => {
           setOrder(res)
-          console.log("order-status", res.status)
           if (res.customer_email) {
             setuserEmail(res.customer_email)
           }

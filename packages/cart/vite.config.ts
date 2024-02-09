@@ -12,16 +12,15 @@ export default defineConfig(({ mode }): any => {
   const basePath =
     env.PUBLIC_PROJECT_PATH != null ? `/${env.PUBLIC_PROJECT_PATH}` : ""
 
-
-    const processEnvValues = {
-      "process.env": Object.entries(env).reduce((prev, [key, val]) => {
-        console.log(key, val);
-        return {
-          ...prev,
-          [key]: val,
-        };
-      }, {}),
-    };
+  const processEnvValues = {
+    "process.env": Object.entries(env).reduce((prev, [key, val]) => {
+      console.log(key, val)
+      return {
+        ...prev,
+        [key]: val,
+      }
+    }, {}),
+  }
 
   return {
     plugins: preparePlugins({ analyzeBundle }),

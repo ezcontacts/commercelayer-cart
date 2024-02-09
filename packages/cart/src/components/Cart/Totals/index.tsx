@@ -28,14 +28,14 @@ export const Totals: FC<Props> = ({ orderData }: any) => {
           if (props.quantity > 0) {
             return (
               <>
-                <div className="pb-4">
+                {/* <div className="pb-4">
                   <span className="text-xs font-semibold leading-5 text-gray-700`">
                     {"Coupons"}
                   </span>
                 </div>
                 <div>
                   <CouponOrGiftCard />
-                </div>
+                </div> */}
 
                 <div className="pb-4">
                   <span className="font-semibold text-sm leading-5 text-gray-700">

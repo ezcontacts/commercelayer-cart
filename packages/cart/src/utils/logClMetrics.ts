@@ -14,6 +14,7 @@ const useLogMetricsData = () => {
   }, [optimizely])
 
   const logMetrics = (event: string) => {
+
     console.log("logMetrics", event)
 
     if (decision) {

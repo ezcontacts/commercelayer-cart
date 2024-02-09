@@ -14,9 +14,8 @@ const useLogMetricsData = () => {
   }, [optimizely])
 
   const logMetrics = (event: string) => {
-    console.log("tesd", optimizely?.initialConfig)
     console.log("logMetrics", event)
-    debugger
+
     if (decision) {
       console.log("decision", decision)
       // No need to use onReady before track

@@ -79,7 +79,7 @@ export const CodeForm = () => {
           <div className="flex-end">
             <GiftCardOrCouponSubmit
               className={`font-normal text-xs leading-5 uppercase text-red-500  ${
-                couponCodeValue === "" ? "opacity-50" : ""
+                couponCodeValue.trim() === "" ? "opacity-50 pointer-events-none" : ""
               }`}
               label={t("couponOrGift.submit")}
               data-test-id="coupon-submit"

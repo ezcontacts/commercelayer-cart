@@ -6,6 +6,7 @@ import { useSettings } from "#components/SettingsProvider"
 import { getLogedinStatus, getVisitorId } from "#utils/getLogedinStatus"
 import { saveUserActivitylogData } from "#utils/cllogs"
 import useLogMetricsData from "#utils/logClMetrics"
+import { triggerOptimizelyEvent } from "#utils/onTriggerOptimizelyEvent"
 
 export const ButtonCheckout: FC = () => {
   const { logMetrics } = useLogMetricsData()
@@ -29,46 +30,50 @@ export const ButtonCheckout: FC = () => {
   }
 
   const onProceedCheckout = async () => {
-    logMetrics("proceed_to_checkout")
-    if (Number(islogged) === 1) {
-      if (settings.orderId) {
-        let paymentToken = await getPaymentToken(settings.orderId)
-        const visitoIdParam = visitoId ? `&ezref=${visitoId}` : ""
+    let response = await triggerOptimizelyEvent(visitoId, "proceed_to_checkout")
+    if (response) {
+      if (Number(islogged) === 1) {
+        if (settings.orderId) {
+          let paymentToken = await getPaymentToken(settings.orderId)
+          const visitoIdParam = visitoId ? `&ezref=${visitoId}` : ""
+          logData({
+            requested_method: "onProceedCheckout",
+            requested_data: { "orderId-": settings.orderId },
+            response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1${visitoIdParam}`,
+          })
+          window.open(
+            `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1${visitoIdParam}`,
+            "_self"
+          )
+        }
+      } else {
         logData({
           requested_method: "onProceedCheckout",
-          requested_data: { "orderId-": settings.orderId },
-          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1${visitoIdParam}`,
+          requested_data: settings.orderId,
+          response_data: `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`,
         })
-        window.open(
-          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=1${visitoIdParam}`,
-          "_self"
-        )
+        window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`
       }
-    } else {
-      logData({
-        requested_method: "onProceedCheckout",
-        requested_data: settings.orderId,
-        response_data: `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`,
-      })
-      window.location.href = `${process.env.REACT_APP_PUBLIC_ODOO_PATH}/account/sign-in?cart-login=1`
     }
   }
 
   const onProceedCheckoutAsGuest = async () => {
-    logMetrics("proceed_to_checkout")
-    if (settings.orderId) {
-      localStorage.setItem("checkoutUserEmail", "")
-      let paymentToken = await getPaymentToken(settings.orderId)
-      const visitoIdParam = visitoId ? `&ezref=${visitoId}` : ""
-      logData({
-        requested_method: "onProceedCheckoutAsGuest",
-        requested_data: { "orderId-": settings.orderId },
-        response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0${visitoIdParam}`,
-      })
-      window.open(
-        `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0${visitoIdParam}`,
-        "_self"
-      )
+    let response = await triggerOptimizelyEvent(visitoId, "proceed_to_checkout")
+    if (response) {
+      if (settings.orderId) {
+        localStorage.setItem("checkoutUserEmail", "")
+        let paymentToken = await getPaymentToken(settings.orderId)
+        const visitoIdParam = visitoId ? `&ezref=${visitoId}` : ""
+        logData({
+          requested_method: "onProceedCheckoutAsGuest",
+          requested_data: { "orderId-": settings.orderId },
+          response_data: `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0${visitoIdParam}`,
+        })
+        window.open(
+          `${process.env.REACT_APP_CHECKOUT_URL}/${settings.orderId}?accessToken=${settings.accessToken}&paymentToken=${paymentToken}&islogged=0${visitoIdParam}`,
+          "_self"
+        )
+      }
     }
   }
 

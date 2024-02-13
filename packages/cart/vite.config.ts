@@ -6,7 +6,7 @@ import { defineConfig } from "vitest/config"
 import { resolve } from "path"
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): any => {
   const env = loadEnv(mode, process.cwd(), "")
   const analyzeBundle = env.ANALYZE_BUNDLE === "true"
   const basePath =
